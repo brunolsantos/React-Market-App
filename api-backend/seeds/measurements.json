@@ -1,0 +1,28 @@
+[{
+    "date": {"$date": 1352540684243},
+    "temperature": 35.4,
+    "ph": 5.2,
+    "turbidity": 90,
+    "level": false
+},
+{
+    "date": {"$date": 1352540684243},
+    "temperature": 35.4,
+    "ph": 5.2,
+    "turbidity": 90,
+    "level": false
+},
+{
+    "date": {"$date": 1352540684243},
+    "temperature": 35.4,
+    "ph": 5.2,
+    "turbidity": 90,
+    "level": false
+},
+{
+    "date": {"$date": 1352540684243},
+    "temperature": 35.4,
+    "ph": 5.2,
+    "turbidity": 90,
+    "level": false
+}]
