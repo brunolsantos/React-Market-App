@@ -15,9 +15,10 @@ router.get('/list', function (req, res, next) {
 });
 
 /* Add new product */
-router.post('/add-product', function (req, res, next) {
+router.post('/add', function (req, res, next) {
     
     let newProduct = new Product({
+        image: req.body.image,
         name: req.body.name,
         description: req.body.description,
         price:req.body.price
@@ -33,10 +34,11 @@ router.post('/add-product', function (req, res, next) {
 });
 
 /* Edit product */
-router.post('/edit-product', function(req,res,next){
+router.post('/edit', function(req,res,next){
     var id = req.body.id;
 
     let product = new Product({
+        image: req.body.image,
         name: req.body.name,
         description: req.body.description,
         price:req.body.price
@@ -52,7 +54,7 @@ router.post('/edit-product', function(req,res,next){
 });
 
 /* Remove Product */
-router.post('/remove-product', function(req,res,next){
+router.post('/remove', function(req,res,next){
     var id = req.body.id;
     Product.removeProduct(id, (err)=>{
         if(err){

@@ -2,11 +2,16 @@ var express = require('express');
 var path = require('path');
 var bodyParser = require('body-parser');
 var mongoose = require('mongoose');
+mongoose.Promise = require('bluebird');
 var cors = require('cors');
-var config = require('./config/database');
+var config = require('./config/config');
+var morgan = require('morgan');
+
+var User   = require('./models/user'); // get our mongoose model
 
 //Routes
 var product = require('./routes/product');
+var user = require('./routes/user');
 
 var app = express();
 
@@ -23,7 +28,8 @@ app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
 
 //Setting up routes
-app.use('/product', product);
+app.use('/api/product', product);
+app.use('/api/user', user);
 
 
 
@@ -38,10 +44,16 @@ app.listen(port, ()=>{
 //Connect to Mongodb
 mongoose.connect(config.database,{useMongoClient:true});
 
+// secret variable
+app.set('superSecret', config.secret); 
+
 //On connection
 mongoose.connection.on('connected', ()=>{
   console.log('Connected to database '+config.database);
 });
+
+// use morgan to log requests to the console
+app.use(morgan('dev'));
 
 //On error
 mongoose.connection.on('error', (err)=>{
