@@ -1,5 +1,5 @@
 const mongoose = require('mongoose');
-const pass_hash = require('../complementary/pass-hash');
+const pass_hash = require('../controller/pass-hash-controller');
 
 var UserSchema = mongoose.Schema({
     date: { type: Date, default: Date.now, select: false },

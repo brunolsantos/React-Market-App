@@ -1,4 +1,5 @@
 const express = require('express');
+var authController = require('../controller/authenticate-controller');
 var router = express.Router();
 
 const User = require('../models/user');
@@ -91,7 +92,8 @@ router.post('/login', function(req, res, next){
         if(err){
             res.json({ success: false, msg: err, data:data });
         }else{
-            res.json({ success: true, msg: msg, data: data });
+            var token = authController.authenticateUser(data);
+            res.json({ success: true, msg: msg, data: data, token: token });
         }
     });
 });

@@ -1,7 +1,24 @@
 const express = require('express');
+var jwt = require('jsonwebtoken');
+var config = require('../config/config');
 var router = express.Router();
-
 const Product = require('../models/product');
+
+/* Validation middleware*/
+router.use(function(req,res,next){
+    var token = req.body.token || req.headers['token'];
+    if(token){
+        jwt.verify(token, config.secret, function(err, decode){
+            if(err){
+                res.status(500).send('Invalid Token');
+            }else{
+                next();
+            }
+        });
+    }else{
+        res.send('Please send a token.');
+    }
+});
 
 /* GET products data. */
 router.get('/list', function (req, res, next) {

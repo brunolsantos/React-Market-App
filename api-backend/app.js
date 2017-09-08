@@ -6,6 +6,7 @@ mongoose.Promise = require('bluebird');
 var cors = require('cors');
 var config = require('./config/config');
 var morgan = require('morgan');
+var jwt = require('jsonwebtoken');
 
 var User   = require('./models/user'); // get our mongoose model
 
