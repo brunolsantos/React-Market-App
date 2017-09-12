@@ -1,0 +1,21 @@
+.main-menu{
+  background-color:lightblue;
+}
+.product-block{
+  background-color:aqua;
+}
+#image-style{
+  float:left;
+}
+.user-info{
+  float:left;
+  padding-left:15px;
+}
+.product{
+  float:left;
+  padding:20px;
+}
+.product, img{
+  padding-top:10px;
+}
+
