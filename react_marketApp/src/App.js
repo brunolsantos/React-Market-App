@@ -8,17 +8,19 @@ class App extends Component {
   constructor(){
     super();
     this.state = {
-      products: []
+      products: [],
+      addedProduct: {
+        name: "",
+        price:0,
+        quantity:0
+      }
     };
+
+    this.addToList = this.addToList.bind(this);
   }
 
   /*After render */
   componentDidMount(){
-
-  }
-
-  /*Before render */
-  componentWillMount(){
     $.ajax({
       url: config.api_url,
       dataType: 'json',
@@ -27,6 +29,17 @@ class App extends Component {
         this.setState({products:data.msg})
       }.bind(this)
     });
+  }
+
+  /*Before render */
+  componentWillMount(){
+   
+  }
+
+  addToList(event){
+    event.preventDefault();
+    alert($(event.currentTarget).attr('data-id'));
+    console.log("data sent");
   }
 
   render() {
@@ -39,7 +52,7 @@ class App extends Component {
             <button className="btn btn-danger" type="submit">Buscar</button>
           </div>
           <div className="user-info" style={{float:'left'}}>
-            <img src={require("./image/user1.png")} className="img-rounded" width="40" height="40" data-toggle="dropdown"/>
+            <img src={require("./image/user1.png")} className="img-rounded" alt="" width="40" height="40" data-toggle="dropdown"/>
             <p>User Name</p>
           </div>
           <div className="user-info">
@@ -51,14 +64,16 @@ class App extends Component {
         {
           this.state.products.map(function(product){
             return (
-              <div className="product">
-                <img src={require("./image/logo.png")} alt=""/>
-                <h2>{product.name}</h2>
-                <h3>{product.price/1000000}</h3>
-                <button className="btn btn-info">adicionar ao carrinho</button>
-              </div>
+              <form key={product._id}>
+                <div className="product">
+                  <img src={require("./image/logo.png")} alt=""/>
+                  <h2>{product.name}</h2>
+                  <h3>{product.price/1000000}</h3>
+                  <button className="btn btn-info" defaultChecked={false} onClick={this.addToList}>adicionar ao carrinho</button>
+                </div>
+              </form>
             );
-          })
+          }.bind(this))
         }
 
       </div>
