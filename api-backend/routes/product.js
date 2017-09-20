@@ -4,7 +4,7 @@ var config = require('../config/config');
 var router = express.Router();
 const Product = require('../models/product');
 
-/* Validation middleware*/
+/* Validation middleware
 router.use(function(req,res,next){
     var token = req.body.token || req.headers['token'];
     if(token){
@@ -19,6 +19,7 @@ router.use(function(req,res,next){
         res.send('Please send a token.');
     }
 });
+*/
 
 /* GET products data. */
 router.get('/list', function (req, res, next) {

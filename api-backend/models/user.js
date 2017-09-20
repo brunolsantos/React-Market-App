@@ -6,9 +6,9 @@ var UserSchema = mongoose.Schema({
     image: String,
     name: String,
     surname: String,
-    email: {type: String, unique:true},
-    password: {type: String},
-    salt:{type: String},
+    email: { type: String, unique: true },
+    password: { type: String },
+    salt: { type: String },
     admin: Boolean
 });
 
@@ -29,7 +29,7 @@ module.exports.addUser = function (newUser, callback) {
 module.exports.editUser = function (id, newUser, callback) {
     User.findOne({ _id: id }, function (err, user) {
         if (err) {
-            var err = { success: false, msg: 'Error getting user from database', error:err };
+            var err = { success: false, msg: 'Error getting user from database', error: err };
             callback(err);
         } else {
             user.name = newUser.name;
@@ -41,25 +41,28 @@ module.exports.editUser = function (id, newUser, callback) {
 }
 
 //User login
-module.exports.login = function (email,password, callback) {
+module.exports.login = function (email, password, callback) {
     User.findOne({ email: email }, function (err, user) {
         if (err) {
             //var err = { success: false, msg: 'Error getting user from database' };
             callback(err);
-        } else {
-            var hash = pass_hash.sha512(password,user.salt);
+        } else if (user) {
+            var hash = pass_hash.sha512(password, user.salt);
 
-            if(hash.passwordHash == user.password){
+            if (hash.passwordHash == user.password) {
                 let tempUser = user.toObject();
                 delete tempUser.password;
                 delete tempUser.salt;
                 delete tempUser.date;
 
                 callback(err, "You are logged in!", tempUser);
-            }else{
+            } else {
                 err = 'Wrong password';
-                callback(err,err,hash);
-            }           
+                callback(err, err, hash);
+            }
+        } else {
+            err={msg:"Wrong email or password!"};
+            callback(err, "Wrong email or password!", hash);
         }
     });
 }
