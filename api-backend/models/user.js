@@ -44,7 +44,7 @@ module.exports.editUser = function (id, newUser, callback) {
 module.exports.login = function (email, password, callback) {
     User.findOne({ email: email }, function (err, user) {
         if (err) {
-            //var err = { success: false, msg: 'Error getting user from database' };
+            var err = { success: false, msg: 'Error getting user from database' };
             callback(err);
         } else if (user) {
             var hash = pass_hash.sha512(password, user.salt);
@@ -57,12 +57,12 @@ module.exports.login = function (email, password, callback) {
 
                 callback(err, "You are logged in!", tempUser);
             } else {
-                err = 'Wrong password';
-                callback(err, err, hash);
+                err={success: false, msg:'Wrong password'};
+                callback(err, err.msg);
             }
         } else {
-            err={msg:"Wrong email or password!"};
-            callback(err, "Wrong email or password!", hash);
+            err={success: false, msg:"Wrong email!"};
+            callback(err, err.msg);
         }
     });
 }

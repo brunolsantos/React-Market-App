@@ -9,19 +9,28 @@ class App extends Component {
   constructor() {
     super();
     this.state = {
-      isLoggedIn: false
+      isLoggedIn: false,
+      user: []
     };
+    this.loggedIn = this.loggedIn.bind(this);
   }
+
+  loggedIn(logged, data){
+    this.setState({user:data});
+    this.setState({isLoggedIn:logged});
+  }
+
   render() {
-    let isLoggedIn = this.state.isLoggedIn;
-    if (isLoggedIn == false) {
+    let loggedUser=this.state.isLoggedIn;
+    let user = this.state.user;
+    if (loggedUser === false) {
       return (
-          <Login />
+          <Login loggedIn={this.loggedIn.bind(this)}/>
       );
     } else {
       return (
         <div className="container">
-          <MainMenu />
+          <MainMenu loggedIn={this.loggedIn.bind(this)} user={this.state.user}/>
           <Product />
         </div>
       );

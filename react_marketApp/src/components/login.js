@@ -9,20 +9,14 @@ class Login extends Component {
         this.state = {
             email_register: "",
             password_register: "",
-            confirmation: "",
             name_register: "",
             email_login: "",
             password_login: ""
         };
-
         this.animateRegister = this.animateRegister.bind(this);
-
         this.verifyLogin = this.verifyLogin.bind(this);
         this.registerAccount = this.registerAccount.bind(this);
-
         this.handleInputChange = this.handleInputChange.bind(this);
-
-
     };
 
     animateRegister() {
@@ -35,42 +29,59 @@ class Login extends Component {
             email_login: this.state.email_login,
             password_login: this.state.password_login
         }
+        if ((user.email_login === "") || (user.password_login === "")) {
+            console.log("Empty field(s) detected");
+        } else {
+            JSON.stringify(user);
 
-        JSON.stringify(user);
-
-        $.ajax({
-            type: "POST",
-            url: config.api_url + "/api/user/login",
-            dataType: 'json',
-            data: user,
-            success: function (user) {
-                console.log(user);
-            }.bind(this)
-        });
+            $.ajax({
+                type: "POST",
+                url: config.api_url + "/api/user/login",
+                dataType: 'json',
+                data: user,
+                success: function (data) {
+                    if(data.success === false){
+                        console.log(data.msg);
+                    }else{
+                        this.props.loggedIn(true, data.data);
+                        console.log(data.data);
+                    }                    
+                }.bind(this)
+            });
+        }
     };
 
     registerAccount(event) {
         var user = {
             email_register: this.state.email_register,
             password_register: this.state.password_register,
-            confirmation: this.state.confirmation,
             name_register: this.state.name_register
         }
-        $.ajax({
-            type: "POST",
-            url: config.api_url + "/api/user/add",
-            dataType: 'json',
-            data: user,
-            success: function (data) {
-                if(data.success){
-                    console.log(data);
-                    this.animateRegister();
-                }else{
-                    console.log(data);
-                }
-                
-            }.bind(this)
-        });
+
+        if ((user.email_register === "") || (user.password_register === "") || (user.name_register === "")) {
+            console.log("Empty field(s) detected");
+        } else {
+            $.ajax({
+                type: "POST",
+                url: config.api_url + "/api/user/add",
+                dataType: 'json',
+                data: user,
+                success: function (data) {
+                    if (data.success) {
+                        this.setState({
+                            email_register: "",
+                            password_register: "",
+                            name_register: ""
+                        }, function () {
+                            this.animateRegister();
+                            console.log(data.msg);
+                        }.bind(this));
+                    } else {
+                        console.log(data);
+                    }
+                }.bind(this)
+            });
+        }
     };
 
     handleInputChange(event) {
@@ -79,21 +90,24 @@ class Login extends Component {
     }
 
     render() {
-        var email = this.state.email;
-        var password = this.state.password;
+        var email_login = this.state.email_login;
+        var password_login = this.state.password_login;
+        var name_register = this.state.name_register;
+        var email_register = this.state.email_register;
+        var password_register = this.state.password_register;
         return (
             <div className="login-page">
                 <div className="form">
                     <div className="register-form">
-                        <input type="text" placeholder="name" onChange={this.handleInputChange} name="name_register" />
-                        <input type="password" placeholder="password" onChange={this.handleInputChange} name="password_register" />
-                        <input type="text" placeholder="email address" onChange={this.handleInputChange} name="email_register" />
+                        <input type="text" placeholder="name" value={name_register} onChange={this.handleInputChange} name="name_register" />
+                        <input type="password" placeholder="password" value={password_register} onChange={this.handleInputChange} name="password_register" />
+                        <input type="text" placeholder="email address" value={email_register} onChange={this.handleInputChange} name="email_register" />
                         <button type="submit" onClick={(e) => this.registerAccount()}>create</button>
                         <p className="message">Already registered? <a href="#" onClick={(e) => this.animateRegister()}>Sign In</a></p>
                     </div>
                     <div className="login-form">
-                        <input type="email" placeholder="email" value={email} onChange={this.handleInputChange} name="email_login" />
-                        <input type="password" placeholder="password" value={password} onChange={this.handleInputChange} name="password_login" />
+                        <input type="email" placeholder="email" value={email_login} onChange={this.handleInputChange} name="email_login" />
+                        <input type="password" placeholder="password" value={password_login} onChange={this.handleInputChange} name="password_login" />
                         <button onClick={(e) => this.verifyLogin()}>login</button>
                         <p className="message">Not registered? <a href="#" onClick={(e) => this.animateRegister()}>Create an account</a></p>
                     </div>

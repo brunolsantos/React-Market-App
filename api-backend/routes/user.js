@@ -87,8 +87,15 @@ router.post('/login', function (req, res, next) {
         if (err) {
             res.json({ success: false, msg: err.msg, data: data });
         } else if (data) {
-            var token = authController.authenticateUser(data);
-            res.json({ success: true, msg: msg, data: data, token: token });
+            //console.log(data);
+            //if(data.success === true){
+                var token = authController.authenticateUser(data);
+                res.json({ success: true, msg: msg, data: data, token: token });
+            //}else{
+               //console.log(data);
+                //res.json(data);
+            //}
+            
         }
     });
 });
