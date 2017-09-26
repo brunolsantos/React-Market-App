@@ -6,8 +6,9 @@ class MainMenu extends Component {
         this.logOut = this.logOut.bind(this);
     }
 
-    logOut(){
-        this.props.loggedIn(false,[]);
+    logOut(e){
+        e.preventDefault();
+        this.props.logOutUser();
     }
 
     render() {
@@ -28,7 +29,7 @@ class MainMenu extends Component {
                     <p>Shop Cart</p>
                 </div>
                 <div>
-                    <a href="#"  onClick={(e) => this.logOut()}>sair</a>
+                    <a href="#"  onClick={(e) => this.logOut(e)}>sair</a>
                 </div>
             </div>
         );

@@ -1,8 +1,18 @@
 import React, { Component } from 'react';
 import './App.css';
-import Product from './components/product';
-import MainMenu from './components/main_menu';
+import {
+  BrowserRouter,
+  Route,
+  Link,
+  Redirect,
+  withRouter, 
+  Switch
+} from 'react-router-dom';
+import Spinner from 'react-spinner';
+
 import Login from './components/login';
+import EditUser from './components/user_information';
+import MainPage from './components/main_page';
 
 class App extends Component {
 
@@ -12,29 +22,58 @@ class App extends Component {
       isLoggedIn: false,
       user: []
     };
-    this.loggedIn = this.loggedIn.bind(this);
+    this.setLoggedIn = this.setLoggedIn.bind(this);
+    this.getLoggedIn = this.getLoggedIn.bind(this);
   }
 
-  loggedIn(logged, data){
-    this.setState({user:data});
-    this.setState({isLoggedIn:logged});
+  setLoggedIn(logged, data) {
+    this.setState({ user: data });
+    this.setState({ isLoggedIn: logged });
+    console.log("setLoggedIn: "+this.state.isLoggedIn);
+    console.log("logged: "+this.state.isLoggedIn);
   }
+  getLoggedIn(){
+    return this.state.isLoggedIn;
+  }
+  
+  
 
   render() {
-    let loggedUser=this.state.isLoggedIn;
     let user = this.state.user;
-    if (loggedUser === false) {
+    console.log("render: "+this.state.isLoggedIn);
+    //if (loggedUser === false) {
       return (
-          <Login loggedIn={this.loggedIn.bind(this)}/>
+       
+        <BrowserRouter>
+          <div>
+            <Route path="/login" render={() =>(
+              this.state.isLoggedIn ?
+              <Redirect to="/product"/> :
+              <Login loggedIn={this.setLoggedIn.bind(this)} />
+            )}/>
+
+            
+
+            <Route path="/product" render={() =>(
+              this.state.isLoggedIn ?
+              <MainPage setLoggedIn={this.setLoggedIn.bind(this)} user={this.state.user} /> :
+              <Redirect to="/login"/>
+            )}/>
+
+          </div>
+        </BrowserRouter>
       );
-    } else {
+    //} 
+    /*else{
       return (
-        <div className="container">
-          <MainMenu loggedIn={this.loggedIn.bind(this)} user={this.state.user}/>
-          <Product />
-        </div>
+        <BrowserRouter>
+          <div className="container">
+          <Route exact path="/product" render={props => <MainPage setLoggedIn={this.setLoggedIn.bind(this)} user={this.state.user} />} />
+          </div>
+        </BrowserRouter>
       );
-    }
+    }*/
+    
   }
 }
 
