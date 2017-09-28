@@ -44,8 +44,9 @@ class Login extends Component {
                     if(data.success === false){
                         console.log(data.msg);
                     }else{
+                        localStorage.setItem("token", data.token);
+                        localStorage.setItem("user", JSON.stringify(data.data));
                         this.props.loggedIn(true, data.data);
-                        console.log(data.data);
                     }                    
                 }.bind(this)
             });
@@ -86,7 +87,6 @@ class Login extends Component {
     };
 
     handleInputChange(event) {
-        //console.log(event.target.value)
         this.setState({ [event.target.name]: event.target.value });
     }
 

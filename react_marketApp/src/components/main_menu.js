@@ -4,11 +4,22 @@ class MainMenu extends Component {
     constructor(){
         super();
         this.logOut = this.logOut.bind(this);
+        this.state = {
+            user: []
+        }
     }
 
     logOut(e){
-        e.preventDefault();
-        this.props.logOutUser();
+        localStorage.removeItem("user");
+        localStorage.removeItem("token");
+    }
+    componentWillMount(){
+        var localStorageUser = localStorage.getItem("user");
+        localStorageUser = JSON.parse(localStorageUser);
+
+        if(localStorageUser !== null){
+            this.setState({user: localStorageUser});
+        }
     }
 
     render() {
@@ -21,8 +32,8 @@ class MainMenu extends Component {
                     <button className="btn btn-danger" type="submit">Buscar</button>
                 </div>
                 <div className="user-info" style={{ float: 'left' }}>
-                    <img src={this.props.user.image} className="img-rounded" alt="" width="40" height="40" data-toggle="dropdown" />
-                    <p>{this.props.user.name}</p>
+                    <img src={this.state.user.image} className="img-rounded" alt="" width="40" height="40" data-toggle="dropdown" />
+                    <p>{this.state.user.name}</p>
                 </div>
                 <div className="user-info">
                     <img className="img-rounded" width="40" height="40" src={require("../image/shopping-cart.png")} alt="" />

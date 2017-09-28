@@ -5,7 +5,7 @@ import {
   Route,
   Link,
   Redirect,
-  withRouter, 
+  withRouter,
   Switch
 } from 'react-router-dom';
 import Spinner from 'react-spinner';
@@ -29,40 +29,44 @@ class App extends Component {
   setLoggedIn(logged, data) {
     this.setState({ user: data });
     this.setState({ isLoggedIn: logged });
-    console.log("setLoggedIn: "+this.state.isLoggedIn);
-    console.log("logged: "+this.state.isLoggedIn);
+    console.log("setLoggedIn: " + this.state.isLoggedIn);
+    console.log("logged: " + this.state.isLoggedIn);
   }
-  getLoggedIn(){
+  getLoggedIn() {
     return this.state.isLoggedIn;
   }
-  
-  
+
+
 
   render() {
     let user = this.state.user;
-    console.log("render: "+this.state.isLoggedIn);
+    console.log("render: " + this.state.isLoggedIn);
     //if (loggedUser === false) {
-      return (
-       
-        <BrowserRouter>
-          <div>
-            <Route path="/login" render={() =>(
-              this.state.isLoggedIn ?
-              <Redirect to="/product"/> :
+    return (
+
+      <BrowserRouter>
+        <Switch>
+          <Route path="/login" render={() => (
+            ((localStorage.getItem("user") !== null )) ?
+              <Redirect to="/product" /> :
               <Login loggedIn={this.setLoggedIn.bind(this)} />
-            )}/>
+          )} />
 
-            
+          <Route path="/product" render={() => (
+            ((localStorage.getItem("user") !== null )) ?
+              <MainPage /> :
+              <Redirect to="/login" />
+          )} />
 
-            <Route path="/product" render={() =>(
-              this.state.isLoggedIn ?
-              <MainPage setLoggedIn={this.setLoggedIn.bind(this)} user={this.state.user} /> :
-              <Redirect to="/login"/>
-            )}/>
+          <Route path="/" render={() => (
+            ((localStorage.getItem("user") !== null )) ?
+              <Redirect to="/product" /> :
+              <Redirect to="/login" />
+          )} />
 
-          </div>
-        </BrowserRouter>
-      );
+        </Switch>
+      </BrowserRouter>
+    );
     //} 
     /*else{
       return (
@@ -73,7 +77,7 @@ class App extends Component {
         </BrowserRouter>
       );
     }*/
-    
+
   }
 }
 

@@ -16,7 +16,7 @@ class MainPage extends Component {
     render() {
         return (
             <div className="container">
-                <MainMenu logOutUser={this.logOut.bind(this)} user={this.props.user} />
+                <MainMenu  />
                 <Product />
             </div>
         );
