@@ -3,16 +3,15 @@ import './App.css';
 import {
   BrowserRouter,
   Route,
-  Link,
   Redirect,
-  withRouter,
-  Switch
+  Switch,
+  withRouter
 } from 'react-router-dom';
+import PropTypes from "prop-types";
 import Spinner from 'react-spinner';
-
 import Login from './components/login';
-import EditUser from './components/user_information';
 import MainPage from './components/main_page';
+import MainPage1 from './components/main_page1';
 
 class App extends Component {
 
@@ -24,61 +23,61 @@ class App extends Component {
     };
     this.setLoggedIn = this.setLoggedIn.bind(this);
     this.getLoggedIn = this.getLoggedIn.bind(this);
+    this.validateSession = this.validateSession.bind(this);
   }
-
+  
   setLoggedIn(logged, data) {
     this.setState({ user: data });
     this.setState({ isLoggedIn: logged });
-    console.log("setLoggedIn: " + this.state.isLoggedIn);
-    console.log("logged: " + this.state.isLoggedIn);
   }
   getLoggedIn() {
     return this.state.isLoggedIn;
   }
 
-
+  validateSession(){
+    let validation = true;
+    if((localStorage.getItem("user") === null )){
+      validation = false;
+      localStorage.clear();
+    }
+    if((localStorage.getItem("token") === null )){
+      validation = false;
+      localStorage.clear();
+    }
+    return validation;
+  }
 
   render() {
-    let user = this.state.user;
-    console.log("render: " + this.state.isLoggedIn);
-    //if (loggedUser === false) {
     return (
-
       <BrowserRouter>
         <Switch>
           <Route path="/login" render={() => (
-            ((localStorage.getItem("user") !== null )) ?
+            (this.validateSession() === true) ?
               <Redirect to="/product" /> :
               <Login loggedIn={this.setLoggedIn.bind(this)} />
           )} />
 
           <Route path="/product" render={() => (
-            ((localStorage.getItem("user") !== null )) ?
+            (this.validateSession() === true) ?
               <MainPage /> :
               <Redirect to="/login" />
           )} />
 
-          <Route path="/" render={() => (
-            ((localStorage.getItem("user") !== null )) ?
-              <Redirect to="/product" /> :
+          <Route path="/product1" render={() => (
+            (this.validateSession() === true) ?
+              <MainPage1 /> :
               <Redirect to="/login" />
           )} />
 
+          <Route path="/" render={() => (
+            (this.validateSession() === true) ?
+              <Redirect to="/product" /> :
+              <Redirect to="/login" />
+          )} />
         </Switch>
       </BrowserRouter>
     );
-    //} 
-    /*else{
-      return (
-        <BrowserRouter>
-          <div className="container">
-          <Route exact path="/product" render={props => <MainPage setLoggedIn={this.setLoggedIn.bind(this)} user={this.state.user} />} />
-          </div>
-        </BrowserRouter>
-      );
-    }*/
-
   }
 }
-
+//<MainPage changePage={this.changePage.bind(this)}/> 
 export default App;

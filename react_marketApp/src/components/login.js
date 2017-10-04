@@ -104,13 +104,13 @@ class Login extends Component {
                         <input type="password" placeholder="password" value={password_register} onChange={this.handleInputChange} name="password_register" />
                         <input type="text" placeholder="email address" value={email_register} onChange={this.handleInputChange} name="email_register" />
                         <button type="submit" onClick={(e) => this.registerAccount()}>create</button>
-                        <p className="message">Already registered? <a href="#" onClick={(e) => this.animateRegister(e)}>Sign In</a></p>
+                        <p className="message">Already registered? <a onClick={(e) => this.animateRegister(e)}>Sign In</a></p>
                     </div>
                     <div className="login-form">
                         <input type="email" placeholder="email" value={email_login} onChange={this.handleInputChange} name="email_login" />
                         <input type="password" placeholder="password" value={password_login} onChange={this.handleInputChange} name="password_login" />
                         <button onClick={(e) => this.verifyLogin()}>login</button>
-                        <p className="message">Not registered? <a  href="#"onClick={(e) => this.animateRegister(e)}>Create an account</a></p>
+                        <p className="message">Not registered? <a  onClick={(e) => this.animateRegister(e)}>Create an account</a></p>
                     </div>
                 </div>
             </div>

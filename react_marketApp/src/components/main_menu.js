@@ -23,7 +23,6 @@ class MainMenu extends Component {
     }
 
     render() {
-        console.log(this.props);
         return (
             <div className="row main-menu">
                 <img src={require('../image/logo.png')} alt="" id="image-style" />

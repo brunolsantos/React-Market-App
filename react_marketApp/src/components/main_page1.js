@@ -1,9 +1,9 @@
 import React, { Component } from 'react';
-import Product from './product';
+import Product1 from './product1';
 import MainMenu from './main_menu';
 import '../App.css';
 
-class MainPage extends Component {
+class MainPage1 extends Component {
     constructor() {
         super();
         this.logOut = this.logOut.bind(this);
@@ -14,14 +14,13 @@ class MainPage extends Component {
     }
 
     render() {
-        console.log(this.props.history);
         return (
             <div className="container">
                 <MainMenu  />
-                <Product />
+                <Product1 />
             </div>
         );
     }
 }
 
-export default MainPage;
+export default MainPage1;
