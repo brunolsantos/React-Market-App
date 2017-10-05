@@ -5,7 +5,7 @@ var webToken = module.exports = {
     
     authenticateUser: function (user) {
         var token = jwt.sign(user, config.secret,{
-            expiresIn: 60000
+            expiresIn: 3600
         });
         return token;
     }

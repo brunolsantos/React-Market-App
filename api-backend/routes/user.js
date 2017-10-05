@@ -1,6 +1,8 @@
 const express = require('express');
 var authController = require('../controller/authenticate-controller');
 var router = express.Router();
+var jwt = require('jsonwebtoken');
+var config = require('../config/config');
 
 const User = require('../models/user');
 
@@ -30,6 +32,25 @@ router.post('/add', function (req, res, next) {
     });
 });
 
+router.post('/validate', function (req, res, next) {
+    let token = req.body.token || req.headers['token'];
+    let validate = true;
+
+    if (token) {
+        jwt.verify(token, config.secret, function (err, decode) {
+            console.log(decode);
+            if (err) {
+                validate = false;
+                res.json({ success: false, msg: err.message, err: err });
+            }else{
+                res.json({ success: true, msg: 'Success!!', user: decode });
+            }
+        });
+    } else {
+        res.json({ success: false, msg: 'Please send a token.' });
+    }
+});
+
 /* Edit user */
 router.post('/edit', function (req, res, next) {
     var id = req.body.id;
@@ -47,21 +68,6 @@ router.post('/edit', function (req, res, next) {
         if (err) {
             res.json({ success: false, msg: "Failed to edit user", error: err });
         } else {
-
-            /*
-                        "data": {
-                            "_id": "59b03c0b23c7f42410af4d71",
-                            "name": "Teste",
-                            "surname": "Teste da Silva",
-                            "image": "www.image1.com.br",
-                            "email": "teste@teste.com",
-                            "password": "b66daaa286d4e128d600ea8f6e158160efa17b51cc97befc66e20165782235f796c42f8126994e0474e707a970a4123fd77a0a9b2d7ec0c398e476290ad15900",
-                            "salt": "236b2942e5a78714",
-                            "admin": false,
-                            "__v": 0,
-                            "date": "2017-09-06T18:18:51.590Z"
-                        }
-            */
             res.json({ success: true, msg: "User edited", data: newUser });
         }
     });
@@ -87,15 +93,8 @@ router.post('/login', function (req, res, next) {
         if (err) {
             res.json({ success: false, msg: err.msg, data: data });
         } else if (data) {
-            //console.log(data);
-            //if(data.success === true){
-                var token = authController.authenticateUser(data);
-                res.json({ success: true, msg: msg, data: data, token: token });
-            //}else{
-               //console.log(data);
-                //res.json(data);
-            //}
-            
+            var token = authController.authenticateUser(data);
+            res.json({ success: true, msg: msg, data: data, token: token });
         }
     });
 });

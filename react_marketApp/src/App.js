@@ -7,14 +7,14 @@ import {
   Switch,
   withRouter
 } from 'react-router-dom';
+import { browserHistory } from 'react-router';
 import PropTypes from "prop-types";
 import Spinner from 'react-spinner';
 import Login from './components/login';
 import MainPage from './components/main_page';
-import MainPage1 from './components/main_page1';
+import EditUser from './components/user';
 
 class App extends Component {
-
   constructor() {
     super();
     this.state = {
@@ -25,22 +25,17 @@ class App extends Component {
     this.getLoggedIn = this.getLoggedIn.bind(this);
     this.validateSession = this.validateSession.bind(this);
   }
-  
+
   setLoggedIn(logged, data) {
-    this.setState({ user: data });
     this.setState({ isLoggedIn: logged });
   }
   getLoggedIn() {
     return this.state.isLoggedIn;
   }
 
-  validateSession(){
+  validateSession() {
     let validation = true;
-    if((localStorage.getItem("user") === null )){
-      validation = false;
-      localStorage.clear();
-    }
-    if((localStorage.getItem("token") === null )){
+    if ((localStorage.getItem("token") === null)) {
       validation = false;
       localStorage.clear();
     }
@@ -63,9 +58,9 @@ class App extends Component {
               <Redirect to="/login" />
           )} />
 
-          <Route path="/product1" render={() => (
+          <Route path="/edit-user" render={() => (
             (this.validateSession() === true) ?
-              <MainPage1 /> :
+              <EditUser /> :
               <Redirect to="/login" />
           )} />
 

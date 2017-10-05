@@ -1,27 +1,27 @@
 import React, { Component } from 'react';
 import PropTypes from "prop-types";
-import Product from './product';
+import EditUser from './user_information';
 import MainMenu from './main_menu';
-import $ from 'jquery';
 import '../App.css';
 import config from '../config/config';
+import $ from 'jquery';
 
-class MainPage extends Component {
+class MainPage1 extends Component {
     static contextTypes = {
         router: PropTypes.object
     }
+
     constructor(props) {
         super(props);
-        this.state = {
-            user: []
-        }
         this.logOut = this.logOut.bind(this);
+        this.state={
+            user:[]
+        }
     }
 
     logOut() {
         this.props.setLoggedIn(false);
     }
-
     componentWillMount() {
         let token = localStorage.getItem("token");
         $.ajax({
@@ -42,10 +42,10 @@ class MainPage extends Component {
         return (
             <div className="container">
                 <MainMenu user={this.state.user} history={this.context.router.history} />
-                <Product />
+                <EditUser />
             </div>
         );
     }
 }
 
-export default MainPage;
+export default MainPage1;

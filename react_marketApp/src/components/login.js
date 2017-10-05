@@ -45,7 +45,6 @@ class Login extends Component {
                         console.log(data.msg);
                     }else{
                         localStorage.setItem("token", data.token);
-                        localStorage.setItem("user", JSON.stringify(data.data));
                         this.props.loggedIn(true, data.data);
                     }                    
                 }.bind(this)
