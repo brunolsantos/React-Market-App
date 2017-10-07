@@ -12,7 +12,6 @@ import PropTypes from "prop-types";
 import Spinner from 'react-spinner';
 import Login from './components/login';
 import MainPage from './components/main_page';
-import EditUser from './components/user';
 
 class App extends Component {
   constructor() {
@@ -60,7 +59,7 @@ class App extends Component {
 
           <Route path="/edit-user" render={() => (
             (this.validateSession() === true) ?
-              <EditUser /> :
+              <MainPage /> :
               <Redirect to="/login" />
           )} />
 

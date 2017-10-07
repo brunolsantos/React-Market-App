@@ -1,21 +1,25 @@
 import React, { Component } from 'react';
 import PropTypes from "prop-types";
-import Product from './product';
-import MainMenu from './main_menu';
 import $ from 'jquery';
 import '../App.css';
 import config from '../config/config';
+
+/* PAGES */
+import MainMenu from './top_menu';
+import Product from './product';
+import EditUser from './edit_user';
 
 class MainPage extends Component {
     static contextTypes = {
         router: PropTypes.object
     }
-    constructor(props) {
-        super(props);
+    constructor() {
+        super();
         this.state = {
             user: []
         }
         this.logOut = this.logOut.bind(this);
+        this.requestUser = this.requestUser.bind(this);
     }
 
     logOut() {
@@ -23,6 +27,10 @@ class MainPage extends Component {
     }
 
     componentWillMount() {
+        this.requestUser();
+    }
+
+    requestUser(){
         let token = localStorage.getItem("token");
         $.ajax({
             type: "POST",
@@ -39,12 +47,32 @@ class MainPage extends Component {
     }
 
     render() {
-        return (
-            <div className="container">
-                <MainMenu user={this.state.user} history={this.context.router.history} />
-                <Product />
-            </div>
-        );
+        let pathName = this.context.router.history.location.pathname;
+        let returnedPage;
+        switch (pathName) {
+            case '/product':
+                return (
+                    <div className="container">
+                        <MainMenu user={this.state.user} history={this.context.router.history} />
+                        <Product />
+                    </div>
+                );
+            case '/edit-user':
+                return (
+                    <div className="container">
+                        <MainMenu user={this.state.user} history={this.context.router.history} />
+                        <EditUser user={this.state.user} />
+                    </div>
+                );
+            default:
+                return (
+                    <div className="container">
+                        <MainMenu user={this.state.user} history={this.context.router.history} />
+                        <Product />
+                    </div>
+                );
+
+        }
     }
 }
 
