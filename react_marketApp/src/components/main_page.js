@@ -19,7 +19,6 @@ class MainPage extends Component {
             user: []
         }
         this.logOut = this.logOut.bind(this);
-        this.requestUser = this.requestUser.bind(this);
     }
 
     logOut() {
@@ -27,10 +26,6 @@ class MainPage extends Component {
     }
 
     componentWillMount() {
-        this.requestUser();
-    }
-
-    requestUser(){
         let token = localStorage.getItem("token");
         $.ajax({
             type: "POST",

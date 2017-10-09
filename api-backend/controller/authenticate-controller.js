@@ -3,8 +3,8 @@ var config = require('../config/config');
 
 var webToken = module.exports = {
     
-    authenticateUser: function (user) {
-        var token = jwt.sign(user, config.secret,{
+    authenticateUser: function (id) {
+        var token = jwt.sign({"id":id}, config.secret,{
             expiresIn: 3600
         });
         return token;

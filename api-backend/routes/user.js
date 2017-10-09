@@ -34,16 +34,19 @@ router.post('/add', function (req, res, next) {
 
 router.post('/validate', function (req, res, next) {
     let token = req.body.token || req.headers['token'];
-    let validate = true;
 
     if (token) {
         jwt.verify(token, config.secret, function (err, decode) {
-            console.log(decode);
             if (err) {
-                validate = false;
                 res.json({ success: false, msg: err.message, err: err });
             }else{
-                res.json({ success: true, msg: 'Success!!', user: decode });
+				User.findUser(decode.id, (err, newUser) => {
+					if (err) {
+						res.json({ success: false, msg: "Failed to find user", error: err });
+					} else {
+						res.json({ success: true, msg: 'Success!!', user: newUser });
+					}
+				});
             }
         });
     } else {
@@ -54,7 +57,7 @@ router.post('/validate', function (req, res, next) {
 /* Edit user */
 router.post('/edit', function (req, res, next) {
     var id = req.body.id;
-
+    
     //add later special field for password change
     //this will edit only selected information about the user
 
@@ -93,7 +96,7 @@ router.post('/login', function (req, res, next) {
         if (err) {
             res.json({ success: false, msg: err.msg, data: data });
         } else if (data) {
-            var token = authController.authenticateUser(data);
+            var token = authController.authenticateUser(data._id);
             res.json({ success: true, msg: msg, data: data, token: token });
         }
     });

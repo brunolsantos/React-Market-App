@@ -67,6 +67,18 @@ module.exports.login = function (email, password, callback) {
     });
 }
 
+//Find User
+module.exports.findUser = function (id, callback) {
+    User.findOne({ _id: id }, function (err, user) {
+        if (err) {
+            var err = { success: false, msg: 'Error getting user from database', error: err };
+            callback(err);
+        } else {
+			callback(err, user);
+        }
+    }).select('-password -date -salt');
+}
+
 
 //Edit user (test use only)
 module.exports.removeUser = function (id, callback) {

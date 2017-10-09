@@ -33,8 +33,6 @@ class Login extends Component {
         if ((user.email_login === "") || (user.password_login === "")) {
             console.log("Empty field(s) detected");
         } else {
-            JSON.stringify(user);
-
             $.ajax({
                 type: "POST",
                 url: config.api_url + "/api/user/login",
