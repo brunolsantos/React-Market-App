@@ -13,6 +13,7 @@ var User   = require('./models/user'); // get our mongoose model
 //Routes
 var product = require('./routes/product');
 var user = require('./routes/user');
+var user_info = require('./routes/user-info');
 
 var app = express();
 
@@ -31,6 +32,7 @@ app.use(bodyParser.urlencoded({ extended: false }));
 //Setting up routes
 app.use('/api/product', product);
 app.use('/api/user', user);
+app.use('/api/user/delivery',user_info);
 
 
 

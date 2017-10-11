@@ -13,6 +13,7 @@ class MainMenu extends Component {
 
     logOut(e) {
         localStorage.removeItem("token");
+        this.props.history.push("/login");
     }
 
     render() {

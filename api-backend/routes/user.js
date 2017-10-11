@@ -5,6 +5,7 @@ var jwt = require('jsonwebtoken');
 var config = require('../config/config');
 
 const User = require('../models/user');
+const UserInfo = require('../models/user-info');
 
 /* Add new user */
 router.post('/add', function (req, res, next) {
@@ -18,6 +19,8 @@ router.post('/add', function (req, res, next) {
         admin: false
     });
 
+
+
     User.addUser(newUser, (err, user) => {
         if (err) {
             if (err.code == 11000) {
@@ -25,8 +28,26 @@ router.post('/add', function (req, res, next) {
             } else {
                 res.json({ success: false, msg: "Failed to add new user", error: err });
             }
-
         } else {
+            let newUserInfo = new UserInfo({
+                cep: "",
+                city: "",
+                neighborhood: "",
+                state: "",
+                street: "",
+                complement: "",
+                number: "",
+                reference: "",
+                telephone: "",
+                user: user._id
+            });
+            UserInfo.addUserDeliveryInfo(newUserInfo, function(err, data){
+                if(err){
+                    console.log({ success: false, msg: "Failed to add new user", error: err });
+                }else{
+                    console.log({ success: true, msg: "Added new User's info", data: data });
+                }
+            });
             res.json({ success: true, msg: "Added new user" });
         }
     });
@@ -39,14 +60,14 @@ router.post('/validate', function (req, res, next) {
         jwt.verify(token, config.secret, function (err, decode) {
             if (err) {
                 res.json({ success: false, msg: err.message, err: err });
-            }else{
-				User.findUser(decode.id, (err, newUser) => {
-					if (err) {
-						res.json({ success: false, msg: "Failed to find user", error: err });
-					} else {
-						res.json({ success: true, msg: 'Success!!', user: newUser });
-					}
-				});
+            } else {
+                User.findUser(decode.id, (err, newUser) => {
+                    if (err) {
+                        res.json({ success: false, msg: "Failed to find user", error: err });
+                    } else {
+                        res.json({ success: true, msg: 'Success!!', user: newUser });
+                    }
+                });
             }
         });
     } else {
@@ -57,7 +78,7 @@ router.post('/validate', function (req, res, next) {
 /* Edit user */
 router.post('/edit', function (req, res, next) {
     var id = req.body.id;
-    
+
     //add later special field for password change
     //this will edit only selected information about the user
 
@@ -83,6 +104,13 @@ router.post('/remove', function (req, res, next) {
         if (err) {
             res.json({ success: false, msg: 'Error deleting user from database' });
         } else {
+            UserInfo.removeUserDeliveryInfo(id, function(err){
+                if(err){
+                    console.log({ success: false, msg: "Failed to delete user delivery information", error: err });
+                }else{
+                    console.log({ success: true, msg: "deleted user delivery information" })
+                }
+            });
             res.json({ success: true, msg: 'User deleted from database' });
         }
     });

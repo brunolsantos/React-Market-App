@@ -11,10 +11,11 @@ class UserInformation extends Component {
             user_password: "",
             user_confirmation: "",
             user_image: "",
-            user_id:""
+            user_id: ""
         };
         this.handleInputChange = this.handleInputChange.bind(this);
         this.sendUserUpdate = this.sendUserUpdate.bind(this);
+        this.logout = this.logout.bind(this);
     }
 
     componentWillMount() {
@@ -27,25 +28,34 @@ class UserInformation extends Component {
                 request.setRequestHeader("token", token);
             },
             success: function (data) {
-                this.setState({ 
-                    user_surname: data.user.surname,
-                    user_name: data.user.name,
-                    user_image: data.user.image,
-                    user_id: data.user._id
-                });
+                if (data.success === false) {
+                    this.logout();
+                } else {
+                    this.setState({
+                        user_surname: data.user.surname,
+                        user_name: data.user.name,
+                        user_image: data.user.image,
+                        user_id: data.user._id
+                    });
+                }
             }.bind(this)
         });
+    }
+
+    logout() {
+        localStorage.removeItem("token");
+        this.props.history.push("/login");
     }
 
     handleInputChange(event) {
         this.setState({ [event.target.name]: event.target.value });
     }
 
-    sendUserUpdate(){
-        var data = { 
-            "image" : this.state.user_image,
-            "name" : this.state.user_name,
-            "surname" : this.state.user_surname,
+    sendUserUpdate() {
+        var data = {
+            "image": this.state.user_image,
+            "name": this.state.user_name,
+            "surname": this.state.user_surname,
             "id": this.state.user_id
         };
         $.ajax({
@@ -54,7 +64,8 @@ class UserInformation extends Component {
             dataType: 'json',
             data: data,
             success: function (data) {
-                console.log(data);
+                this.props.updateUser();
+                this.props.history.push('/edit-user/delivery');
             }.bind(this)
         });
     }

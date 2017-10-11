@@ -5,9 +5,10 @@ import '../App.css';
 import config from '../config/config';
 
 /* PAGES */
-import MainMenu from './top_menu';
+import TopMenu from './top_menu';
 import Product from './product';
 import EditUser from './edit_user';
+import EditUserDeliveryInfo from './edit_delivery_info';
 
 class MainPage extends Component {
     static contextTypes = {
@@ -18,14 +19,16 @@ class MainPage extends Component {
         this.state = {
             user: []
         }
-        this.logOut = this.logOut.bind(this);
+        this.logout = this.logout.bind(this);
+        this.updateUser = this.updateUser.bind(this);
     }
 
-    logOut() {
-        this.props.setLoggedIn(false);
+    logout() {
+        localStorage.removeItem("token");
+        this.props.history.push("/login");
     }
 
-    componentWillMount() {
+    updateUser() {
         let token = localStorage.getItem("token");
         $.ajax({
             type: "POST",
@@ -35,10 +38,17 @@ class MainPage extends Component {
                 request.setRequestHeader("token", token);
             },
             success: function (data) {
-                this.setState({ user: data.user });
-                //console.log(this.state.user);
+                if(data.success === false){
+                    this.logout();
+                }else{
+                    this.setState({ user: data.user });
+                }                
             }.bind(this)
         });
+    }
+
+    componentWillMount() {
+        this.updateUser();
     }
 
     render() {
@@ -48,21 +58,28 @@ class MainPage extends Component {
             case '/product':
                 return (
                     <div className="container">
-                        <MainMenu user={this.state.user} history={this.context.router.history} />
+                        <TopMenu user={this.state.user} history={this.context.router.history} />
                         <Product />
                     </div>
                 );
             case '/edit-user':
                 return (
                     <div className="container">
-                        <MainMenu user={this.state.user} history={this.context.router.history} />
-                        <EditUser user={this.state.user} />
+                        <TopMenu user={this.state.user} history={this.context.router.history} />
+                        <EditUser updateUser={this.updateUser} history={this.context.router.history} />
+                    </div>
+                );
+            case '/edit-user/delivery':
+                return (
+                    <div className="container">
+                        <TopMenu user={this.state.user} history={this.context.router.history} />
+                        <EditUserDeliveryInfo user={this.state.user}/>
                     </div>
                 );
             default:
                 return (
                     <div className="container">
-                        <MainMenu user={this.state.user} history={this.context.router.history} />
+                        <TopMenu user={this.state.user} history={this.context.router.history} />
                         <Product />
                     </div>
                 );

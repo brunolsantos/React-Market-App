@@ -20,7 +20,7 @@ class Login extends Component {
     };
 
     animateRegister(e) {
-        e.preventDefault();
+        //e.preventDefault();
         $('.register-form').animate({ height: "toggle", opacity: "toggle" }, "slow");
         $('.login-form').animate({ height: "toggle", opacity: "toggle" }, "slow");
     };
