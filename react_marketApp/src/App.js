@@ -16,20 +16,7 @@ import MainPage from './components/main_page';
 class App extends Component {
   constructor() {
     super();
-    this.state = {
-      isLoggedIn: false,
-      user: []
-    };
-    this.setLoggedIn = this.setLoggedIn.bind(this);
-    this.getLoggedIn = this.getLoggedIn.bind(this);
     this.validateSession = this.validateSession.bind(this);
-  }
-
-  setLoggedIn(logged, data) {
-    this.setState({ isLoggedIn: logged });
-  }
-  getLoggedIn() {
-    return this.state.isLoggedIn;
   }
 
   validateSession() {
@@ -47,8 +34,8 @@ class App extends Component {
         <Switch>
           <Route path="/login" render={() => (
             (this.validateSession() === true) ?
-              <Redirect to="/product" /> :
-              <Login loggedIn={this.setLoggedIn.bind(this)} />
+            <Redirect to="/product" /> :
+            <Login />
           )} />
 
           <Route path="/product" render={() => (
@@ -79,5 +66,8 @@ class App extends Component {
     );
   }
 }
+/*
+  
+ */
 //<MainPage changePage={this.changePage.bind(this)}/> 
 export default App;

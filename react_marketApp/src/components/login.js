@@ -2,8 +2,13 @@ import React, { Component } from 'react';
 import '../css/login.css';
 import $ from 'jquery';
 import config from '../config/config';
+import PropTypes from "prop-types";
 
 class Login extends Component {
+    static contextTypes = {
+        router: PropTypes.object
+    }
+
     constructor() {
         super();
         this.state = {
@@ -43,7 +48,7 @@ class Login extends Component {
                         console.log(data.msg);
                     }else{
                         localStorage.setItem("token", data.token);
-                        this.props.loggedIn(true, data.data);
+                        this.context.router.history.push("/");
                     }                    
                 }.bind(this)
             });
