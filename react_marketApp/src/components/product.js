@@ -1,15 +1,13 @@
 import React, { Component } from 'react';
 import $ from 'jquery';
 import config from '../config/config';
-import { getUserId } from '../extras/extra';
 
 class Product extends Component {
   /* change port on node_modules/react-scripts/start */
   constructor() {
     super();
     this.state = {
-      products: [],
-      productShopList: [],
+      products: []
     };
     this.addToList = this.addToList.bind(this);
   }
@@ -25,16 +23,21 @@ class Product extends Component {
           request.setRequestHeader("token", localStorageToken);
         },
         success: function (data) {
+          console.log(data.msg);
           this.setState({ products: data.msg })
         }.bind(this)
       });
     }
-    let cart = {
-      token: localStorageToken,
-      product: []
-    }
-    cart = JSON.stringify(cart);
-    localStorage.setItem("cart",cart);
+
+    //Preparing cart
+    if(localStorage.getItem("cart") === null){
+      let cart = {
+        token: localStorageToken,
+        product: []
+      }
+      cart = JSON.stringify(cart);
+      localStorage.setItem("cart",cart);
+    }    
   }
 
   /*Before render */
@@ -46,10 +49,8 @@ class Product extends Component {
     event.preventDefault();
     let productList = localStorage.getItem("cart");
     productList = JSON.parse(productList);
-    let product = {
-      product: data._id,
-      quantity: 0
-    }
+    data["quantity"] = 1;
+    let product =  { product:data }
 
     productList.product.push(product);
     productList = JSON.stringify(productList);

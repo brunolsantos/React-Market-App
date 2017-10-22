@@ -56,6 +56,12 @@ class App extends Component {
               <Redirect to="/login" />
           )} />
 
+          <Route path="/shop-cart" render={() => (
+            (this.validateSession() === true) ?
+              <MainPage /> :
+              <Redirect to="/login" />
+          )} />
+
           <Route path="/" render={() => (
             (this.validateSession() === true) ?
               <Redirect to="/product" /> :

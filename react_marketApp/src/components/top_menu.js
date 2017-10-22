@@ -30,7 +30,7 @@ class MainMenu extends Component {
                 </div>
                 <div className="user-info">
                     <img className="img-rounded" width="40" height="40" src={require("../image/shopping-cart.png")} alt="" />
-                    <p>Shop Cart</p>
+                    <a onClick={(e) => this.props.history.push('/shop-cart')}><p>Shop Cart</p></a>
                 </div>
                 <div>
                     <a href="#" onClick={(e) => this.logOut(e)}>sair</a>

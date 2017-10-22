@@ -9,6 +9,7 @@ import TopMenu from './top_menu';
 import Product from './product';
 import EditUser from './edit_user';
 import EditUserDeliveryInfo from './edit_delivery_info';
+import ShopCart from './shop_cart';
 
 class MainPage extends Component {
     static contextTypes = {
@@ -24,7 +25,7 @@ class MainPage extends Component {
     }
 
     logout() {
-        localStorage.removeItem("token");
+        localStorage.clear();
         this.props.history.push("/login");
     }
 
@@ -38,11 +39,11 @@ class MainPage extends Component {
                 request.setRequestHeader("token", token);
             },
             success: function (data) {
-                if(data.success === false){
+                if (data.success === false) {
                     this.logout();
-                }else{
+                } else {
                     this.setState({ user: data.user });
-                }                
+                }
             }.bind(this)
         });
     }
@@ -73,7 +74,14 @@ class MainPage extends Component {
                 return (
                     <div className="container">
                         <TopMenu user={this.state.user} history={this.context.router.history} />
-                        <EditUserDeliveryInfo user={this.state.user}/>
+                        <EditUserDeliveryInfo user={this.state.user} />
+                    </div>
+                );
+            case '/shop-cart':
+                return (
+                    <div className="container">
+                        <TopMenu user={this.state.user} history={this.context.router.history} />
+                        <ShopCart />
                     </div>
                 );
             default:
