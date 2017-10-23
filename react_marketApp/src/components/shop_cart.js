@@ -17,31 +17,39 @@ class ShopCart extends Component {
     componentDidMount() {
         let localStorageCart = localStorage.getItem("cart");
         localStorageCart = JSON.parse(localStorageCart);
-        this.setState({cart:localStorageCart.product});
+        this.setState({ cart: localStorageCart.products });
     }
 
     /*Before render */
     componentWillMount() {
-        
+
     }
 
     handleInputChange(e, cart) {
         cart.quantity = e.target.value;
     }
 
-    removeFromCart(e, cart){
+    removeFromCart(e, cart) {
         e.preventDefault();
-        for(let i = 0; i < this.state.cart.length;i++){
-            if(this.state.cart[i].product._id === cart.product._id){
-                console.log("position: "+i);
-                let localStorageCart = localStorage.getItem("cart");
-                localStorageCart = JSON.parse(localStorageCart);
-                localStorageCart.product.splice(i, 1);
-                this.setState({cart:localStorageCart.product});
-                localStorageCart = JSON.stringify(localStorageCart);
-                localStorage.setItem("cart", localStorageCart);
+        let localStorageCart = localStorage.getItem("cart");
+        localStorageCart = JSON.parse(localStorageCart);
+
+        for (let i = 0; i < this.state.cart.length; i++) {
+            if (this.state.cart[i].product._id === cart.product._id) {
+                if(this.state.cart[i].product.quantity > 1){
+                    let productQty = this.state.cart[i].product;
+                    cart.product.quantity -= 1;
+                    this.setState({productQty:cart});
+                    localStorageCart.products = this.state.cart;
+                }else{
+                    localStorageCart.products.splice(i, 1);
+                    this.setState({ cart: localStorageCart.products });
+                }
             }
         }
+
+        localStorageCart = JSON.stringify(localStorageCart);
+        localStorage.setItem("cart", localStorageCart);
     }
 
     render() {
@@ -55,9 +63,9 @@ class ShopCart extends Component {
                                     <img src={require("../image/logo.png")} alt="" />
                                     <h2>{cart.product.name}</h2>
                                     <h3>{cart.product.price / 1000000}</h3>
-                                    <input type="number" name="quantity" value={cart.product.quantity} onChange={(e) => this.handleInputChange(e, cart)}/>
-                                    <br/>
-                                    <button className="btn btn-danger" defaultChecked={false} onClick={(e) => this.removeFromCart(e, cart)}>adicionar ao carrinho</button>
+                                    <input type="number" name="quantity" value={cart.product.quantity} onChange={(e) => this.handleInputChange(e, cart)} />
+                                    <br />
+                                    <button className="btn btn-danger" defaultChecked={false} onClick={(e) => this.removeFromCart(e, cart)}>Remover</button>
                                 </div>
                             </form>
                         );

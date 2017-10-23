@@ -23,7 +23,6 @@ class Product extends Component {
           request.setRequestHeader("token", localStorageToken);
         },
         success: function (data) {
-          console.log(data.msg);
           this.setState({ products: data.msg })
         }.bind(this)
       });
@@ -33,7 +32,7 @@ class Product extends Component {
     if(localStorage.getItem("cart") === null){
       let cart = {
         token: localStorageToken,
-        product: []
+        products: []
       }
       cart = JSON.stringify(cart);
       localStorage.setItem("cart",cart);
@@ -48,14 +47,31 @@ class Product extends Component {
   addToList(event, data) {
     event.preventDefault();
     let productList = localStorage.getItem("cart");
+    let equalId = {
+      equal:false,
+      position:-1
+    };
     productList = JSON.parse(productList);
-    data["quantity"] = 1;
-    let product =  { product:data }
 
-    productList.product.push(product);
+
+    for(let i = 0;i < productList.products.length;i++){
+      if(data._id === productList.products[i].product._id){
+        equalId.equal = true;
+        equalId.position = i;
+      }
+    }
+    
+    if((equalId.equal === true) && (equalId.position !== -1)){
+      productList.products[equalId.position].product.quantity += 1;
+    }else{
+      data["quantity"] = 1;
+      data = {
+        product:data
+      }
+      productList.products.push(data);
+    }
     productList = JSON.stringify(productList);
-    localStorage.setItem("cart", productList);
-    event.preventDefault();
+    localStorage.setItem("cart", productList);    
   }
 
   render() {
