@@ -4,26 +4,35 @@
 <head>
   <meta charset="utf-8">
   <title>Market app</title>
-  <link rel="stylesheet" href="product-page.css">
+  <link rel="stylesheet" href="./css/product-page.css">
+  <link rel="stylesheet" href="./css/font-awesome-4.7.0/css/font-awesome.css">
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+  <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+  <script src="script.js"></script>
 </head>
 
 <body>
   <div class="header">
-      <img src="logo.png" alt="">
+    <img src="logo.png" alt="">
     <div class="header-container">
-      
+
 
       <div class="header-components">
         <div class="search-bar">
           <input type="text" class="form-control" placeholder="Search">
-          <button class='button -standard center' type="submit">Buscar</button> 
+          <button class='button -standard center' type="submit">Buscar</button>
         </div>
         <div class="user-info">
-          <img src="image/user.jpg" data-toggle="dropdown">
-          <p>Bruno Lucas</p>
+          <a>
+            <img src="image/user.jpg" data-toggle="dropdown">
+          </a>
+          <span>Bruno Lucas</span>
         </div>
         <div class="shop-cart">
-          <img src="../sketchs/icons/shopping-cart.png" alt="">
+          <a>
+            <i class="fa fa-shopping-cart ui-widget-content" aria-hidden="true"></i>
+            <div class="shop-qty" ><p>2</p></div>
+          </a>
         </div>
       </div>
     </div>
@@ -60,8 +69,6 @@
       <button class='button -green center'>adicionar ao carrinho</button>
     </div>
   </div>
-
-
 </body>
 
 </html>

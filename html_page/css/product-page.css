@@ -1,0 +1,221 @@
+body{
+  margin:0;
+  padding:0;
+}
+
+/*HEADER STUFF*/
+.header{
+  background-color: #54599B;
+  height: auto;
+  overflow: hidden;
+}
+.header img{
+  float:left;
+}
+.header-container{
+  margin-left: 50px;
+}
+.header-components{
+  margin-top: 30px;
+  color:#E9E2EB;
+}
+
+/*SEARCH BAR*/
+.search-bar{
+  float: left;
+  margin-left: 50px;
+  display: flex;
+  border-radius: 35px;
+}
+.search-bar input{
+  border: 0 none;
+  padding-left: 10px;
+  width:400px;
+  box-shadow: 2px 5px 10px rgba(22, 22, 22, 0.1);
+}
+
+/*USER BUTTON*/
+.user-info{
+  float:left;
+  margin-left: 50px;
+
+}
+.user-info p {
+  margin: 3px 0 3px 10px;
+  padding-left: 10px;
+}
+.user-info span {
+  padding-left: 10px;
+}
+.user-info img{
+  float: left;
+  border-radius:100%; 
+  margin: 0 auto;
+  width: 40px;
+}
+
+/*CART BUTTON*/
+.shop-cart{
+  float:left;
+  border-radius:100px;
+  padding-left: 10px;
+}
+.shop-cart img{
+  width: 35px;
+}
+.shop-cart i{
+  -ms-transform: translate(10px, -6px); /* IE 9 */
+  -webkit-transform: translate(10px, -6px); /* Safari */
+  transform: translate(10px, -5px);
+  font-size: 23px;
+}
+.shop-cart i{
+  padding:13px;
+}
+.shop-qty{
+  background: rgb(196, 72, 83);
+  font-size: 13px;
+  border-radius: 60px;
+  padding: 4px;
+  width: 10px;
+  height: 10px;
+  transform: translate(40px, -26px);
+}
+.shop-qty p{
+  transform: translate(2px, -15px);
+}
+.fa {
+  padding: 1em;
+  text-align: center;
+  display: inline;
+  border-radius: 50%;
+}
+.fa-shopping-cart:hover {
+  -webkit-transition: all 60ms ease;
+  transition: all 60ms ease;
+  opacity: .87;
+}
+.fa-shopping-cart:active {
+  -webkit-transition: all 60ms ease;
+  transition: all 60ms ease;
+  opacity: .75;
+  border: none;
+}
+
+
+/*BUTTON*/
+.button {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  overflow: hidden;
+  padding: 12px 12px;
+  cursor: pointer;
+  -webkit-user-select: none;
+     -moz-user-select: none;
+      -ms-user-select: none;
+          user-select: none;
+  -webkit-transition: all 60ms ease-in-out;
+  transition: all 60ms ease-in-out;
+  text-align: center;
+  white-space: nowrap;
+  text-decoration: none !important;
+  text-transform: none;
+  text-transform: capitalize;
+  color: #fff;
+  border: 0 none;
+  font-size: 13px;
+  font-weight: 500;
+  line-height: 1.3;
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  appearance: none;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  -webkit-box-flex: 0;
+      -ms-flex: 0 0 95px;
+          flex: 0 0 95px;
+  box-shadow: 2px 5px 10px rgba(22, 22, 22, 0.1);
+  border: none;
+  outline:none;
+}
+.button:hover {
+  -webkit-transition: all 60ms ease;
+  transition: all 60ms ease;
+  opacity: .87;
+}
+.button:active {
+  -webkit-transition: all 60ms ease;
+  transition: all 60ms ease;
+  opacity: .75;
+  border: none;
+}
+
+.button.-regular {
+  color: #202129;
+  background-color: #f2f2f2;
+}
+.button.-regular:hover {
+  color: #202129;
+  background-color: #e1e2e2;
+  opacity: 1;
+}
+.button.-regular:active {
+  background-color: #d5d6d6;
+  opacity: 1;
+}
+
+.button.-dark {
+  color: #FFFFFF;
+  background: #161616;
+}
+.button.-dark:focus {
+  outline: 1px dotted white;
+  outline-offset: -4px;
+}
+
+.button.-green {
+  color: #FFFFFF;
+  background: #3dd28d;
+}
+
+.button.-blue {
+  color: #FFFFFF;
+  background: #416dea;
+}
+
+.button.-salmon {
+  color: #FFFFFF;
+  background: #F32C52;
+}
+
+.button.-sun {
+  color: #f15c5c;
+  background: #feee7d;
+}
+
+.button.-alge {
+  color: #e7ff20;
+  background: #7999a9;
+}
+
+.button.-flower {
+  color: #FE8CDF;
+  background: #353866;
+}
+
+.button.-standard {
+  background: #C14953;
+  color: #fff;
+}
+
+
+/*
+  Button
+  https://codepen.io/simonbusborg/pen/cyxad?depth=everything&order=popularity&page=2&q=button&show_forks=false
+*/
+
