@@ -111,7 +111,7 @@ body{
 .cart-card{
   width: 440px;
   background-color: rgba(68, 74, 136, 1);
-  border-radius: 2%;
+  border-radius: 1%;
   overflow: hidden;
   /*height: 300px;
   overflow-y: scroll;*/
@@ -149,7 +149,9 @@ body{
   list-style-type: none;
 }
 .shopping-cart-items li{
-  background: white;
+  border-bottom: 1px double rgba(255,255,255,0.2);
+  padding: 13px;
+  background: rgba(255,255,255,0.05);
 }
 .shopping-cart-header {
   border-bottom: 1px solid #E8E8E8;
