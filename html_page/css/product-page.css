@@ -11,7 +11,6 @@ body{
 }
 .header img{
   float:left;
-  padding: 10px 0px 0px 10px;
 }
 .header-container{
   margin-left: 50px;
@@ -19,6 +18,9 @@ body{
 .header-components{
   margin-top: 30px;
   color:#E9E2EB;
+}
+.container4 {
+  /*margin: 0% 10% 0% 10%;*/
 }
 
 /*SEARCH BAR*/
@@ -280,6 +282,13 @@ body{
   float: right;
   padding: 5px;
 }
+.button-red-minus{
+  color: #FFFFFF;
+  background: #F32C52;
+  border-radius: 30px;
+  float: right;
+  padding: 5px;
+}
 
 
 /*PRODUCT CARD*/
@@ -287,11 +296,12 @@ body{
   display: block;
   top: 100%;
   overflow:auto;
+  margin-bottom: 50px;
 }
 .product-card{
   padding: 20px;
   float: left;
-  margin: 12px 0px 0px 12px;
+  margin: 30px 0px 0px 30px;
   /*background: white;*/
   border-radius: 5px;
   border: 1px solid #ccc!important;
@@ -357,6 +367,33 @@ body{
 .active {
   background-color: rgb(68,74,136);
 }
+
+
+/*CATALOG*/
+.catalog{
+  border: 1px solid #ccc!important;
+  float: left;
+  margin: 30px 0px 0px 30px;
+  text-align: center;
+  border-radius:5px; 
+}
+.catalog li, a{
+  list-style-type: none;
+  margin: 10px 0px 0px 0px;
+  text-decoration: none !important;
+}
+.catalog ul{
+  display: block;
+  list-style-type: disc;
+  -webkit-margin-before: 0px;
+  -webkit-margin-after: 0px;
+  -webkit-margin-start: 0px;
+  -webkit-margin-end: 0px;
+  -webkit-padding-start: 0px;
+  padding: 20px;
+  font-size: 20px;
+}
+
 
 
 /*

@@ -4,74 +4,168 @@
 <head>
     <meta charset="utf-8">
     <title>Market app</title>
-
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u"
-        crossorigin="anonymous">
+    <link rel="stylesheet" href="./css/product-page.css">
+    <link rel="stylesheet" href="./css/shop-cart.css">
+    <link rel="stylesheet" href="./css/font-awesome-4.7.0/css/font-awesome.css">
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
-    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
-    <link rel="stylesheet" href="user-page.css">
+    <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+    <script src="script.js"></script>
 </head>
 
 <body>
-    <!-- Main Menu -->
-    <div class="container">
-        <div class="row" style="background-color:lightblue">
-            <img src="logo.png" alt="" style="float:left">
-            <div class="input-group" style="float:left">
-                <input type="text" class="form-control" placeholder="Search">
-                <button class="btn btn-danger" type="submit">Buscar</button>
-            </div>
-            <div class="user-info" style="float:left">
-                <img src="./icons/user1.png" class="img-rounded" width="40" height="40" data-toggle="dropdown">
-                <p>Bruno Lucas</p>
-            </div>
-            <div class="user-info" style="float:left;padding-left:15px">
-                <img class="img-rounded" width="40" height="40" src="../sketchs/icons/shopping-cart.png" alt="">
-                <p>carrinho</p>
-            </div>
+    <div class="header">
+        <!--div class="container4"-->
+        <div>
+            <img src="logo.png" alt="">
         </div>
 
-        <!-- Content -->
-        <div class="row" style="background-color:aqua;">
-            <div style="float:left;padding: 20px">
-                <img src="logo.png" alt="" style="padding-top:10px;">
-                <h2>nome do produto</h2>
-                <h3>R$30,00</h3>
-                <button class="btn btn-danger">Remover</button>
+        <div class="header-container">
+            <div class="header-components">
+                <div class="search-bar">
+                    <input type="text" class="form-control" placeholder="Search">
+                    <button class='button -standard center' type="submit">Buscar</button>
+                </div>
+                <div class="user-info">
+                    <a>
+                        <img src="image/user.jpg" data-toggle="dropdown">
+                    </a>
+                    <span>Bruno Lucas</span>
+                </div>
+                <div class="shop-cart">
+                    <a>
+                        <i class="fa fa-shopping-cart ui-widget-content" aria-hidden="true"></i>
+                        <div class="shop-qty">
+                            <p>3</p>
+                        </div>
+                    </a>
+                </div>
+                <div class="cart-products">
+                    <div class="cart-card">
+                        <div class="shopping-cart-header">
+                            <i class="fa fa-shopping-cart cart-icon"></i>
+                            <span class="badge">3</span>
+                            <div class="shopping-cart-total">
+                                <span class="lighter-text">Total:</span>
+                                <span class="main-color-text">$2,229.97</span>
+                            </div>
+                        </div>
+                        <!--end shopping-cart-header -->
+                        <ul class="shopping-cart-items">
+                            <li class="clearfix">
+                                <img class="item-img" src="https://s3-us-west-2.amazonaws.com/s.cdpn.io/195612/cart-item1.jpg" alt="item1" />
+                                <span class="item-name">Sony DSC-RX100M III</span>
+                                <span class="item-price">$849.99</span>
+                                <span class="item-quantity">Quantity: 01</span>
+                                <a href="#">
+                                    <span class="item-remove">X</span>
+                                </a>
+                            </li>
+                            <li class="clearfix">
+                                <img class="item-img" src="https://s3-us-west-2.amazonaws.com/s.cdpn.io/195612/cart-item1.jpg" alt="item1" />
+                                <span class="item-name">Sony DSC-RX100M III</span>
+                                <span class="item-price">$849.99</span>
+                                <span class="item-quantity">Quantity: 01</span>
+                                <a href="#">
+                                    <span class="item-remove">X</span>
+                                </a>
+                            </li>
+                            <li class="clearfix">
+                                <img class="item-img" src="https://s3-us-west-2.amazonaws.com/s.cdpn.io/195612/cart-item1.jpg" alt="item1" />
+                                <span class="item-name">Sony DSC-RX100M III</span>
+                                <span class="item-price">$849.99</span>
+                                <span class="item-quantity">Quantity: 01</span>
+                                <a href="#">
+                                    <span class="item-remove">X</span>
+                                </a>
+                            </li>
+                            <li class="clearfix">
+                                <img class="item-img" src="https://s3-us-west-2.amazonaws.com/s.cdpn.io/195612/cart-item1.jpg" alt="item1" />
+                                <span class="item-name">Sony DSC-RX100M III</span>
+                                <span class="item-price">$849.99</span>
+                                <span class="item-quantity">Quantity: 01</span>
+                                <a href="#">
+                                    <span class="item-remove">X</span>
+                                </a>
+                            </li>
+                            <li class="clearfix">
+                                <img class="item-img" src="https://s3-us-west-2.amazonaws.com/s.cdpn.io/195612/cart-item1.jpg" alt="item1" />
+                                <span class="item-name">Sony DSC-RX100M III</span>
+                                <span class="item-price">$849.99</span>
+                                <span class="item-quantity">Quantity: 01</span>
+                                <a href="#">
+                                    <span class="item-remove">X</span>
+                                </a>
+                            </li>
+                            <li class="clearfix">
+                                <img class="item-img" src="https://s3-us-west-2.amazonaws.com/s.cdpn.io/195612/cart-item1.jpg" alt="item1" />
+                                <span class="item-name">Sony DSC-RX100M III</span>
+                                <span class="item-price">$849.99</span>
+                                <span class="item-quantity">Quantity: 01</span>
+                                <a href="#">
+                                    <span class="item-remove">X</span>
+                                </a>
+                            </li>
+                        </ul>
+                        <button class='button -green center cart-buy-button'>Finalizar Compra</button>
+                    </div>
+                </div>
             </div>
-            <div style="float:left;padding: 20px">
-                <img src="logo.png" alt="" style="padding-top:10px;">
-                <h2>nome do produto</h2>
-                <h3>R$30,00</h3>
-                <button class="btn btn-danger">Remover</button>
-            </div>
-            <div style="float:left;padding: 20px">
-                <img src="logo.png" alt="" style="padding-top:10px;">
-                <h2>nome do produto</h2>
-                <h3>R$30,00</h3>
-                <button class="btn btn-danger">Remover</button>
-            </div>
-            <div style="float:left;padding: 20px">
-                <img src="logo.png" alt="" style="padding-top:10px;">
-                <h2>nome do produto</h2>
-                <h3>R$30,00</h3>
-                <button class="btn btn-danger">Remover</button>
-            </div>
-            <div style="float:left;padding: 20px">
-                <img src="logo.png" alt="" style="padding-top:10px;">
-                <h2>nome do produto</h2>
-                <h3>R$30,00</h3>
-                <button class="btn btn-danger">Remover</button>
-            </div>
-            <div style="float:left;padding: 20px">
-                <img src="logo.png" alt="" style="padding-top:10px;">
-                <h2>nome do produto</h2>
-                <h3>R$30,00</h3>
-                <button class="btn btn-danger">Remover</button>
+            <div class="icon-bar">
+                <a href="#" class="active">
+                    <img src="../sketchs/icons/kitchen.png" alt="">
+                    <p>Cozinha</p>
+                </a>
+                <a href="#">
+                    <img src="../sketchs/icons/cleaning.png" alt="">
+                    <p>Limpeza</p>
+                </a>
+                <a href="#">
+                    <img src="../sketchs/icons/bathroom.png" alt="">
+                    <p>Banho</p>
+                </a>
             </div>
         </div>
-        <div class="row" style="background-color:aqua; padding-top:50px;">
-            <h3 style="float:right">total: R$1000,00</h3>
+        <!--/div-->
+    </div>
+    <div class="product-container">
+        <div class="product-card">
+            <img src="logo.png" alt="">
+            <h2>nome do produto</h2>
+            <h3>R$30,00</h3>
+            <button class='button -standard button-green-plus'>
+                <i class="fa fa-minus" aria-hidden="true"></i>
+            </button>
+        </div>
+        <div class="product-card">
+            <img src="logo.png" alt="">
+            <h2>nome do produto</h2>
+            <h3>R$30,00</h3>
+            <button class='button -standard button-green-plus'>
+                <i class="fa fa-minus" aria-hidden="true"></i>
+            </button>
+        </div>
+        <div class="product-card">
+            <img src="logo.png" alt="">
+            <h2>nome do produto</h2>
+            <h3>R$30,00</h3>
+            <button class='button -standard button-green-plus'>
+                <i class="fa fa-minus" aria-hidden="true"></i>
+            </button>
+        </div>
+    </div>
+    <div class="shop-cart-page">
+        <div class=""> <h1>Total: R$250,30</h1> </div>
+       <hr/>
+        <div class="payment-type">
+            <h2>Formas de pagamento</h2>
+            <input type="radio" checked="true" value="credit_card" name="payment-type" id="credit_card" />
+            <label for="credit_card">Cartão de Credito</label>
+            
+            <input type="radio" value="debit_card" name="payment-type" id="debit_card" />
+            <label for="debit_card">Cartão de Debito</label>
+            
+            <input type="radio" value="money" name="payment-type" id="money"/>
+            <label for="money">Dinheiro</label>
         </div>
     </div>
 </body>
