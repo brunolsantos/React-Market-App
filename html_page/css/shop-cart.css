@@ -15,7 +15,6 @@
     /*float: left;*/
     display: inline-grid;
     text-align: center;
-    position: relative;
 }
 .delivery-block label{
     margin: 0px 60px 0px 0px;
