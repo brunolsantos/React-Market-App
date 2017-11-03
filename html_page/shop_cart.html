@@ -132,7 +132,7 @@
             <img src="logo.png" alt="">
             <h2>nome do produto</h2>
             <h3>R$30,00</h3>
-            <button class='button -standard button-green-plus'>
+            <button class='button -standard rounded-button'>
                 <i class="fa fa-minus" aria-hidden="true"></i>
             </button>
         </div>
@@ -140,7 +140,7 @@
             <img src="logo.png" alt="">
             <h2>nome do produto</h2>
             <h3>R$30,00</h3>
-            <button class='button -standard button-green-plus'>
+            <button class='button -standard rounded-button'>
                 <i class="fa fa-minus" aria-hidden="true"></i>
             </button>
         </div>
@@ -148,26 +148,48 @@
             <img src="logo.png" alt="">
             <h2>nome do produto</h2>
             <h3>R$30,00</h3>
-            <button class='button -standard button-green-plus'>
+            <button class='button -standard rounded-button'>
                 <i class="fa fa-minus" aria-hidden="true"></i>
             </button>
         </div>
     </div>
     <div class="shop-cart-page">
-        <div class=""> <h1>Total: R$250,30</h1> </div>
-       <hr/>
-        <div class="payment-type">
+        <div class="">
+            <h1>Total: R$250,30</h1>
+        </div>
+        <hr/>
+        <div class="delivery-block">
             <h2>Formas de pagamento</h2>
             <input type="radio" checked="true" value="credit_card" name="payment-type" id="credit_card" />
             <label for="credit_card">Cartão de Credito</label>
-            
+
             <input type="radio" value="debit_card" name="payment-type" id="debit_card" />
             <label for="debit_card">Cartão de Debito</label>
-            
-            <input type="radio" value="money" name="payment-type" id="money"/>
+
+            <input type="radio" value="money" name="payment-type" id="money" />
             <label for="money">Dinheiro</label>
+            
         </div>
+
+        <div class="delivery-block">
+                <h2>Horario de Entrega</h2>
+                <input type="time" value="23:00">
+                <h2>Data de entrega</h2>
+                <div class="date-picker open">
+                    <div class="input">
+                        <div class="result">
+                            <span></span>
+                        </div>
+                        
+                    </div>
+                    <div class="calendar"></div>
+                </div>
+            
+        </div>
+        <div class="finish-buying"><button class='button -green'>Finalizar Compra</button></div>
     </div>
+    
+    
 </body>
 
 </html>

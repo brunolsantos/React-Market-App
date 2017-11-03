@@ -85,7 +85,7 @@ body{
   transform: translate(40px, -26px);
 }
 .shop-qty p{
-  transform: translate(2px, -15px);
+  transform: translate(1px, -15px);
   font-size: 13px;
 }
 .fa {
@@ -275,16 +275,8 @@ body{
   background: #C14953;
   color: #fff;
 }
-.button-green-plus{
+.rounded-button{
   color: #FFFFFF;
-  background: #3dd28d;
-  border-radius: 30px;
-  float: right;
-  padding: 5px;
-}
-.button-red-minus{
-  color: #FFFFFF;
-  background: #F32C52;
   border-radius: 30px;
   float: right;
   padding: 5px;
@@ -296,7 +288,7 @@ body{
   display: block;
   top: 100%;
   overflow:auto;
-  margin-bottom: 50px;
+  margin: 0% 10% 5% 10%;
 }
 .product-card{
   padding: 20px;
