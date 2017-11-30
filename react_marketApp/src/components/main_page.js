@@ -1,8 +1,9 @@
 import React, { Component } from 'react';
 import PropTypes from "prop-types";
 import $ from 'jquery';
-import '../App.css';
 import config from '../config/config';
+import "../css/header.css";
+import "../css/shop-cart.css";
 
 /* PAGES */
 import TopMenu from './top_menu';
@@ -10,6 +11,7 @@ import Product from './product';
 import EditUser from './edit_user';
 import EditUserDeliveryInfo from './edit_delivery_info';
 import ShopCart from './shop_cart';
+import Payment from './payment_type';
 
 class MainPage extends Component {
     static contextTypes = {
@@ -18,15 +20,17 @@ class MainPage extends Component {
     constructor() {
         super();
         this.state = {
-            user: []
+            user: [],
+            productList:[],
+            qty:0
         }
         this.logout = this.logout.bind(this);
         this.updateUser = this.updateUser.bind(this);
+        this.setCartQty = this.setCartQty.bind(this);
     }
 
     logout() {
         localStorage.clear();
-        this.props.history.push("/login");
     }
 
     updateUser() {
@@ -52,43 +56,55 @@ class MainPage extends Component {
         this.updateUser();
     }
 
+    setCartQty(cartQty){
+        console.log('setcartquantity: '+cartQty);
+        this.setState({qty:cartQty});
+    }
+
     render() {
         let pathName = this.context.router.history.location.pathname;
         let returnedPage;
         switch (pathName) {
             case '/product':
                 return (
-                    <div className="container">
-                        <TopMenu user={this.state.user} history={this.context.router.history} />
-                        <Product />
+                    <div>
+                        <TopMenu cartQty={this.state.qty} user={this.state.user} history={this.context.router.history}/>
+                        <Product setCartQty={this.setCartQty}/>
                     </div>
                 );
             case '/edit-user':
                 return (
-                    <div className="container">
-                        <TopMenu user={this.state.user} history={this.context.router.history} />
+                    <div>
+                        <TopMenu cartQty={this.state.qty} user={this.state.user} history={this.context.router.history}/>
                         <EditUser updateUser={this.updateUser} history={this.context.router.history} />
                     </div>
                 );
             case '/edit-user/delivery':
                 return (
-                    <div className="container">
-                        <TopMenu user={this.state.user} history={this.context.router.history} />
+                    <div>
+                        <TopMenu cartQty={this.state.qty} user={this.state.user} history={this.context.router.history}/>
                         <EditUserDeliveryInfo user={this.state.user} />
                     </div>
                 );
             case '/shop-cart':
                 return (
-                    <div className="container">
-                        <TopMenu user={this.state.user} history={this.context.router.history} />
-                        <ShopCart />
+                    <div>
+                        <TopMenu cartQty={this.state.qty} user={this.state.user} history={this.context.router.history}/>
+                        <ShopCart setCartQty={this.setCartQty} history={this.context.router.history} />
+                    </div>
+                );
+            case '/payment':
+                return (
+                    <div>
+                        <TopMenu cartQty={this.state.qty} user={this.state.user} history={this.context.router.history}/>
+                        <Payment history={this.context.router.history} />
                     </div>
                 );
             default:
                 return (
-                    <div className="container">
-                        <TopMenu user={this.state.user} history={this.context.router.history} />
-                        <Product />
+                    <div>
+                        <TopMenu cartQty={this.state.qty} user={this.state.user} history={this.context.router.history}/>
+                        <Product setCartQty={this.setCartQty}/>
                     </div>
                 );
 

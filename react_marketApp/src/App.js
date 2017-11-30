@@ -34,8 +34,8 @@ class App extends Component {
         <Switch>
           <Route path="/login" render={() => (
             (this.validateSession() === true) ?
-            <Redirect to="/product" /> :
-            <Login />
+              <Redirect to="/product" /> :
+              <Login />
           )} />
 
           <Route path="/product" render={() => (
@@ -62,6 +62,12 @@ class App extends Component {
               <Redirect to="/login" />
           )} />
 
+          <Route path="/payment" render={() => (
+            (this.validateSession() === true) ?
+              <MainPage /> :
+              <Redirect to="/login" />
+          )} />
+
           <Route path="/" render={() => (
             (this.validateSession() === true) ?
               <Redirect to="/product" /> :
@@ -71,9 +77,5 @@ class App extends Component {
       </BrowserRouter>
     );
   }
-}
-/*
-  
- */
-//<MainPage changePage={this.changePage.bind(this)}/> 
+} 
 export default App;
