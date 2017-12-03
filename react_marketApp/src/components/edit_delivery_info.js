@@ -101,7 +101,7 @@ class EditDeliveryInfo extends Component {
     render() {
         return (
             <div className="row" style={{ background: 'aqua' }}>
-                <div className="col-lg-3" style="margin:30px;" style={{ margin: '30px' }}>
+                <div className="col-lg-3"  style={{ margin: '30px' }}>
                     <div className="form-group ">
                         <label>CEP</label>
                         <input type="text" value={this.state.cep} onChange={this.handleInputChange} className="form-control" id="cep" name="cep" />

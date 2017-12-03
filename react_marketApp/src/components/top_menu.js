@@ -1,9 +1,5 @@
 import React, { Component } from 'react';
-import { Redirect } from 'react-router-dom';
 import PropTypes from "prop-types";
-import $ from 'jquery';
-import JqueryUI from 'jquery-ui';
-import TopShopCart from './top_menu_cart';
 
 class MainMenu extends Component {
     static contextTypes = {
@@ -59,7 +55,7 @@ class MainMenu extends Component {
                         </div>
                         <div className="user-info">
                             <a onClick={(e) => this.props.history.push('/edit-user')}>
-                                <img src={this.props.user.image} data-toggle="dropdown" />
+                                <img src={this.props.user.image} alt="" data-toggle="dropdown" />
                                 <span>{this.props.user.name}</span>
                                 <i onClick={(e) => this.logOut(e)} className="fa fa-sign-out" aria-hidden="true"></i>
                             </a>
@@ -75,15 +71,15 @@ class MainMenu extends Component {
                         </div>
                     </div>
                     <div className="icon-bar">
-                        <a href="#" className="active">
+                        <a style={{ cursor: 'pointer' }} className="active">
                             <img src={require('../image/kitchen.png')} alt="" />
                             <p>Cozinha</p>
                         </a>
-                        <a href="#">
+                        <a style={{ cursor: 'pointer' }}>
                             <img src={require('../image/cleaning.png')} alt="" />
                             <p>Limpeza</p>
                         </a>
-                        <a href="#">
+                        <a style={{ cursor: 'pointer' }}>
                             <img src={require('../image/bathroom.png')} alt="" />
                             <p>Banho</p>
                         </a>

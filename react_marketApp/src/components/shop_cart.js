@@ -1,7 +1,11 @@
 import React, { Component } from 'react';
-import $ from 'jquery';
-import config from '../config/config';
-import "../css/shop-cart.css";
+import $ from 'jquery'
+import '../css/shop-cart.css';
+import Helper from './complement/ShopCart_global';
+
+import InfiniteCalendar from 'react-infinite-calendar';
+import 'react-infinite-calendar/styles.css'; // only needs to be imported once
+
 
 class ShopCart extends Component {
     /* change port on node_modules/react-scripts/start */
@@ -9,15 +13,17 @@ class ShopCart extends Component {
         super();
         this.state = {
             cart: [],
-            paymentType:String,
-            deliveryTime: String
+            paymentType: String,
+            deliveryDateTime: new Date(),
+            deliveryTime: String,
+            deliveryDate: String
         };
-        this.handleInputChange = this.handleInputChange.bind(this);
         this.handlePaymentType = this.handlePaymentType.bind(this);
         this.handleDeliveryTime = this.handleDeliveryTime.bind(this);
         this.removeFromCart = this.removeFromCart.bind(this);
         this.finishShop = this.finishShop.bind(this);
-        this.calculateProductQuantity = this.calculateProductQuantity.bind(this);
+        this.calculateShopCartQty = this.calculateShopCartQty.bind(this);
+        this.checkDateTime = this.checkDateTime.bind(this);
     }
 
     /*After render */
@@ -25,22 +31,42 @@ class ShopCart extends Component {
         let localStorageCart = localStorage.getItem("cart");
         localStorageCart = JSON.parse(localStorageCart);
         this.setState({ cart: localStorageCart.products });
+        this.calculateShopCartQty();
     }
 
     /*Before render */
     componentWillMount() {
+        let today = new Date();
+        let hour = today.getHours();
+        let minutes = ('0'+today.getMinutes()).slice(-2);
+        let deliveryTime = hour.toString() + ":" + minutes.toString();
 
+        let deliveryDate = today.getFullYear()+'-'+(today.getMonth()+1)+'-'+today.getDate();
+        let deliveryDateTime = new Date(deliveryDate + ' ' +  deliveryTime+":00");
+        this.setState({
+            deliveryTime: deliveryTime,
+            deliveryDate: deliveryDate,
+            deliveryDateTime: deliveryDateTime
+        });
+        console.log('current Date: '+this.state.deliveryDateTime);
     }
+
+
 
     /* Handlers */
-    handleDeliveryTime(e){
-        this.setState({deliveryTime: e.target.name});
+    handleDeliveryTime(e) {
+        let deliveryDate = this.state.deliveryDate;
+        let fullDeliveryDateTime = new Date(deliveryDate + ' ' + e.target.value+":00");
+
+        this.setState({ 
+            deliveryDate: deliveryDate,
+            deliveryDateTime: fullDeliveryDateTime,
+            deliveryTime: e.target.value
+        });
     }
-    handleInputChange(e, cart) {
-        cart.quantity = e.target.value;
-    }
-    handlePaymentType(e){
-        this.setState({paymentType:e.target.name});
+    
+    handlePaymentType(e) {
+        this.setState({ paymentType: e.target.name });
     }
 
     removeFromCart(e, cart) {
@@ -51,7 +77,6 @@ class ShopCart extends Component {
         for (let i = 0; i < this.state.cart.length; i++) {
             if (this.state.cart[i].product._id === cart.product._id) {
                 if (this.state.cart[i].product.quantity > 1) {
-                    let productQty = this.state.cart[i].product;
                     cart.product.quantity -= 1;
                     this.setState({ productQty: cart });
                     localStorageCart.products = this.state.cart;
@@ -63,33 +88,29 @@ class ShopCart extends Component {
         }
         localStorageCart = JSON.stringify(localStorageCart);
         localStorage.setItem("cart", localStorageCart);
-        this.calculateProductQuantity();
+        this.calculateShopCartQty();
     }
 
-    calculateProductQuantity() {
-        let productList = localStorage.getItem("cart");
-        productList = JSON.parse(productList);
-        let quantity = 0;
-
-        for (let i = 0; i < productList.products.length; i++) {
-            quantity += productList.products[i].product.quantity;
-        }
-        this.props.setCartQty(quantity);
+    calculateShopCartQty() {
+        this.props.setCartQty(Helper.getTotalShopCart());
     }
 
     finishShop() {
-        let shopList = localStorage.getItem("cart");
+        //DO IT LATER
+        /*let shopList = localStorage.getItem("cart");
         shopList = JSON.parse(shopList);
         shopList["token"] = localStorage.getItem("token");
         console.log(shopList);
-        this.props.history.push("/payment");
+        this.props.history.push("/payment");*/
+    }
+    checkDateTime(){
+        console.log('Updated date time11: '+ this.state.deliveryDateTime);
     }
 
     render() {
-        let day = new Date();
-        let hour = day.getHours();
-        let minutes = day.getMinutes();
-        let deliveryTime = hour.toString()+":"+minutes.toString();
+        let today = new Date();
+        let threeDaysGrace = new Date(today.getFullYear(), today.getMonth(), today.getDate() + 3);
+        let minMonth = new Date(today.getFullYear(), today.getMonth(), today.getDate());
 
         return (
             <div>
@@ -122,30 +143,67 @@ class ShopCart extends Component {
 
                         <input type="radio" checked={this.state.paymentType === 'credit_card'} onChange={this.handlePaymentType} name="credit_card" id="credit_card" />
                         <label htmlFor="credit_card">Cartão de Credito</label>
-                        
-                        <input type="radio"  checked={this.state.paymentType === 'debit_card'} onChange={this.handlePaymentType} name="debit_card" id="debit_card" />
+
+                        <input type="radio" checked={this.state.paymentType === 'debit_card'} onChange={this.handlePaymentType} name="debit_card" id="debit_card" />
                         <label htmlFor="debit_card">Cartão de Debito</label>
 
-                        <input type="radio"  checked={this.state.paymentType === 'money'} onChange={this.handlePaymentType} name="money" id="money"/>
+                        <input type="radio" checked={this.state.paymentType === 'money'} onChange={this.handlePaymentType} name="money" id="money" />
                         <label htmlFor="money">Dinheiro</label>
                     </div>
 
                     <div className="delivery-block">
                         <h2>Horario de Entrega</h2>
-                        <input type="time" onChange={this.handleDeliveryTime} defaultValue={deliveryTime}/>
+                        <input type="time" onChange={this.handleDeliveryTime} defaultValue={this.state.deliveryTime}/>
                         <h2>Data de entrega</h2>
-                        <div className="date-picker open">
-                            <div className="input">
-                                <div className="result">
-                                    <span></span>
-                                </div>
+                        <InfiniteCalendar
+                            width={300}
+                            height={200}
+                            selected={this.state.deliveryDate}
+                            minDate={today}
+                            maxDate={threeDaysGrace}
+                            min={minMonth}
+                            max={minMonth}
+                            locale={{
+                                locale: require('date-fns/locale/pt'),
+                                blank: 'Selecione um dia...',
+                                headerFormat: 'ddd, D MMM ',
+                                todayLabel: {
+                                  long: 'Hoje',
+                                },
+                                weekdays: ['Dom', 'Seg', 'Ter', 'Qua', 'Qui', 'Sex', 'Sab'],
+                                weekStartsOn: 1,
+                            }}
+                            theme={{
+                                selectionColor: 'rgb(84,89,155)',
+                                textColor: {
+                                  default: '#333',
+                                  active: '#FFF'
+                                },
+                                weekdayColor: 'rgba(84,89,155, 0.87)',
+                                headerColor: 'rgb(84,89,155)',
+                                floatingNav: {
+                                  background: 'rgb(84,89,155)',
+                                  color: '#FFF',
+                                  chevron: '#FFA726'
+                                }
+                            }}
+                            onSelect={
+                                (v) => {
+                                    let delivery = v.getFullYear()+'-'+(v.getMonth()+1)+'-'+v.getDate();
+                                    let fullDeliveryDateTime = new Date(delivery + ' ' + this.state.deliveryTime+":00");
 
-                            </div>
-                            <div className="calendar"></div>
-                        </div>
-
+                                    this.setState({ 
+                                        deliveryDate: delivery,
+                                        deliveryDateTime: fullDeliveryDateTime 
+                                    });
+                                    console.log('Updated date time: '+ this.state.deliveryDateTime);
+                                    console.log('fullDeliveryDateTime: '+ fullDeliveryDateTime);
+                                }
+                            }
+                        />
+                        
                     </div>
-                    <div className="finish-buying"><button className='button -green'>Finalizar Compra</button></div>
+                    <div className="finish-buying" onClick={(e) => this.checkDateTime()}><button className='button -green'>Finalizar Compra</button></div>
                 </div>
             </div>
         );

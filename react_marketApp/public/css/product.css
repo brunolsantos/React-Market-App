@@ -12,8 +12,7 @@
   /*background: white;*/
   border-radius: 5px;
   border: 1px solid #ccc!important;
-
-  background-image: linear-gradient(bottom, #D6D6EA 30%, white 30%);
+  background-image: linear-gradient(to bottom, #D6D6EA 30%, white 30%);
   background-image: -o-linear-gradient(bottom, #D6D6EA 30%, white 30%);
   background-image: -moz-linear-gradient(bottom, #D6D6EA 30%, white 30%);
   background-image: -webkit-linear-gradient(bottom, #D6D6EA 30%, white 30%);

@@ -4,12 +4,8 @@ import {
   BrowserRouter,
   Route,
   Redirect,
-  Switch,
-  withRouter
+  Switch
 } from 'react-router-dom';
-import { browserHistory } from 'react-router';
-import PropTypes from "prop-types";
-import Spinner from 'react-spinner';
 import Login from './components/login';
 import MainPage from './components/main_page';
 

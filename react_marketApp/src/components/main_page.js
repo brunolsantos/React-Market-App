@@ -11,7 +11,6 @@ import Product from './product';
 import EditUser from './edit_user';
 import EditUserDeliveryInfo from './edit_delivery_info';
 import ShopCart from './shop_cart';
-import Payment from './payment_type';
 
 class MainPage extends Component {
     static contextTypes = {
@@ -63,7 +62,6 @@ class MainPage extends Component {
 
     render() {
         let pathName = this.context.router.history.location.pathname;
-        let returnedPage;
         switch (pathName) {
             case '/product':
                 return (
@@ -91,13 +89,6 @@ class MainPage extends Component {
                     <div>
                         <TopMenu cartQty={this.state.qty} user={this.state.user} history={this.context.router.history}/>
                         <ShopCart setCartQty={this.setCartQty} history={this.context.router.history} />
-                    </div>
-                );
-            case '/payment':
-                return (
-                    <div>
-                        <TopMenu cartQty={this.state.qty} user={this.state.user} history={this.context.router.history}/>
-                        <Payment history={this.context.router.history} />
                     </div>
                 );
             default:

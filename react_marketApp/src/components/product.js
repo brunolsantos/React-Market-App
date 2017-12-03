@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import $ from 'jquery';
 import config from '../config/config';
 import "../css/product.css";
+import Helper from "./complement/ShopCart_global";
 
 class Product extends Component {
   /* change port on node_modules/react-scripts/start */
@@ -11,7 +12,7 @@ class Product extends Component {
       products: []
     };
     this.addToList = this.addToList.bind(this);
-    this.calculateProductQuantity = this.calculateProductQuantity.bind(this);
+    this.calculateShopCartQty = this.calculateShopCartQty.bind(this);
   }
 
   /*After render */
@@ -33,17 +34,20 @@ class Product extends Component {
     //Preparing cart
     if (localStorage.getItem("cart") === null) {
       let cart = {
-        //token: localStorageToken,
         products: []
       }
       cart = JSON.stringify(cart);
       localStorage.setItem("cart", cart);
     }
+    this.calculateShopCartQty();
   }
 
   /*Before render */
   componentWillMount() {
 
+  }
+  calculateShopCartQty() {
+    this.props.setCartQty(Helper.getTotalShopCart());
   }
 
   addToList(event, data) {
@@ -74,18 +78,7 @@ class Product extends Component {
     }
     productList = JSON.stringify(productList);
     localStorage.setItem("cart", productList);
-    this.calculateProductQuantity();
-  }
-
-  calculateProductQuantity() {
-    let productList = localStorage.getItem("cart");
-    productList = JSON.parse(productList);
-    let quantity = 0;
-
-    for (let i = 0; i < productList.products.length; i++) {
-      quantity += productList.products[i].product.quantity;
-    }
-    this.props.setCartQty(quantity);
+    this.calculateShopCartQty();
   }
 
   render() {

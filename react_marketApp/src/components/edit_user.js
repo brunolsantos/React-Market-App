@@ -73,8 +73,8 @@ class UserInformation extends Component {
     render() {
         return (
             <div className="row" style={{ background: 'aqua' }}>
-                <div className="col-lg-3" style="margin:30px;" style={{ margin: '30px' }}>
-                    <img src={this.state.user_image} className="img-rounded" width="40" height="40" data-toggle="dropdown" style={{ float: 'left' }} />
+                <div className="col-lg-3" style={{ margin: '30px' }}>
+                    <img src={this.state.user_image} alt="" className="img-rounded" width="40" height="40" data-toggle="dropdown" style={{ float: 'left' }} />
                     <div className="form-group ">
                         <input type="text" value={this.state.user_image} onChange={this.handleInputChange} className="form-control" id="image" name="user_image" />
                     </div>
