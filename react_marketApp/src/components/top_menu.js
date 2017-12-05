@@ -54,7 +54,7 @@ class MainMenu extends Component {
                             <button className='button -standard center' type="submit">Buscar</button>
                         </div>
                         <div className="user-info">
-                            <a onClick={(e) => this.props.history.push('/edit-user')}>
+                            <a onClick={(e) => this.props.history.push('/edit-info/user')}>
                                 <img src={this.props.user.image} alt="" data-toggle="dropdown" />
                                 <span>{this.props.user.name}</span>
                                 <i onClick={(e) => this.logOut(e)} className="fa fa-sign-out" aria-hidden="true"></i>

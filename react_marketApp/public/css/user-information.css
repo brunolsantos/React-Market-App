@@ -58,7 +58,7 @@
 }
 .save-button{
     display: block;
-    width: -webkit-fill-available;
+    width: stretch;
     font-size: 20px;
     margin: 30px;
 }

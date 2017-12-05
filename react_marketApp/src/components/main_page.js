@@ -8,8 +8,7 @@ import "../css/shop-cart.css";
 /* PAGES */
 import TopMenu from './top_menu';
 import Product from './product';
-import EditUser from './edit_user';
-import EditUserDeliveryInfo from './edit_delivery_info';
+import EditInfo from './edit_info';
 import ShopCart from './shop_cart';
 
 class MainPage extends Component {
@@ -70,18 +69,18 @@ class MainPage extends Component {
                         <Product setCartQty={this.setCartQty}/>
                     </div>
                 );
-            case '/edit-user':
+            case '/edit-info/user':
                 return (
                     <div>
                         <TopMenu cartQty={this.state.qty} user={this.state.user} history={this.context.router.history}/>
-                        <EditUser updateUser={this.updateUser} history={this.context.router.history} />
+                        <EditInfo updateUser={this.updateUser} history={this.context.router.history} />
                     </div>
                 );
-            case '/edit-user/delivery':
+            case '/edit-info/delivery':
                 return (
                     <div>
                         <TopMenu cartQty={this.state.qty} user={this.state.user} history={this.context.router.history}/>
-                        <EditUserDeliveryInfo user={this.state.user} />
+                        <EditInfo user={this.state.user} history={this.context.router.history}/>
                     </div>
                 );
             case '/shop-cart':

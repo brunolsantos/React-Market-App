@@ -1,0 +1,25 @@
+.input_sm{
+    width: 150px;
+}
+.delivery_sm label{
+    width: 180px;
+}
+.input_lg{
+    /*color:blue;
+    width: 440px;*/
+    display:inline-block; 
+    *display: inline;    
+    zoom:1;              
+    vertical-align:middle;
+    width: 440px;
+}
+.delivery_lg label{
+    /*color:blue;
+    width: 440px;*/
+    display:inline-block;
+    *display: inline;    
+    zoom:1;             
+    padding-top: 5px;
+    text-align: right;
+    /*width: 140px;*/
+}

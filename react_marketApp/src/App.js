@@ -40,13 +40,13 @@ class App extends Component {
               <Redirect to="/login" />
           )} />
 
-          <Route path="/edit-user" render={() => (
+          <Route path="/edit-info/user" render={() => (
             (this.validateSession() === true) ?
               <MainPage /> :
               <Redirect to="/login" />
           )} />
 
-          <Route path="/edit-user/delivery" render={() => (
+          <Route path="/edit-info/delivery" render={() => (
             (this.validateSession() === true) ?
               <MainPage /> :
               <Redirect to="/login" />

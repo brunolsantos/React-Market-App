@@ -16,9 +16,7 @@
 }
 .user-configuration-categories.-delivery input{
     border: 1px solid #ccc !important;
-    padding-left: 10px;
-    width: 189px;
-    font-size: 30px;
+    font-size: 24px;
     text-align: center;
     margin: 10px;
 }
@@ -26,7 +24,11 @@
     width: 700px;
 }
 .edit-user-info.-category{
-    width: 190px;
+    width: 220px;
+}
+.edit-user-info.-category div a h3:hover{
+    color:rgb(193, 73, 83);
+    cursor: pointer;
 }
 .edit-user-info img{
     height: 100px;

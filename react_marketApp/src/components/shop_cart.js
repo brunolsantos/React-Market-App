@@ -1,5 +1,4 @@
 import React, { Component } from 'react';
-import $ from 'jquery'
 import '../css/shop-cart.css';
 import Helper from './complement/ShopCart_global';
 
@@ -48,7 +47,7 @@ class ShopCart extends Component {
             deliveryDate: deliveryDate,
             deliveryDateTime: deliveryDateTime
         });
-        console.log('current Date: '+this.state.deliveryDateTime);
+        //console.log('current Date: '+this.state.deliveryDateTime);
     }
 
 
@@ -104,7 +103,7 @@ class ShopCart extends Component {
         this.props.history.push("/payment");*/
     }
     checkDateTime(){
-        console.log('Updated date time11: '+ this.state.deliveryDateTime);
+        //console.log('Updated date time11: '+ this.state.deliveryDateTime);
     }
 
     render() {
@@ -142,13 +141,13 @@ class ShopCart extends Component {
                         <h2>Formas de pagamento</h2>
 
                         <input type="radio" checked={this.state.paymentType === 'credit_card'} onChange={this.handlePaymentType} name="credit_card" id="credit_card" />
-                        <label htmlFor="credit_card">Cartão de Credito</label>
+                        <label className="label_shopCart" htmlFor="credit_card">Cartão de Credito</label>
 
                         <input type="radio" checked={this.state.paymentType === 'debit_card'} onChange={this.handlePaymentType} name="debit_card" id="debit_card" />
-                        <label htmlFor="debit_card">Cartão de Debito</label>
+                        <label className="label_shopCart" htmlFor="debit_card">Cartão de Debito</label>
 
                         <input type="radio" checked={this.state.paymentType === 'money'} onChange={this.handlePaymentType} name="money" id="money" />
-                        <label htmlFor="money">Dinheiro</label>
+                        <label className="label_shopCart" htmlFor="money">Dinheiro</label>
                     </div>
 
                     <div className="delivery-block">
@@ -196,8 +195,6 @@ class ShopCart extends Component {
                                         deliveryDate: delivery,
                                         deliveryDateTime: fullDeliveryDateTime 
                                     });
-                                    console.log('Updated date time: '+ this.state.deliveryDateTime);
-                                    console.log('fullDeliveryDateTime: '+ fullDeliveryDateTime);
                                 }
                             }
                         />

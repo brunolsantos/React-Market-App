@@ -31,7 +31,7 @@ input[type="radio"] {
   opacity: 0;
   z-index: -1;
 }
-label {
+.label_shopCart {
   position: relative;
   display: inline-block;
   margin-right: 10px;
@@ -42,7 +42,7 @@ label {
   cursor: pointer;
   padding-top: 5px;
 }
-label::before {
+.label_shopCart::before {
   content: " ";
   position: absolute;
   top: 6px;
@@ -71,8 +71,8 @@ input[type="radio"]:checked + label::before {
   background: #54599B;
 }
 /* Transition */
-label,
-label::before {
+.label_shopCart,
+.label_shopCart::before {
   -webkit-transition: .25s all ease;
   -o-transition: .25s all ease;
   transition: .25s all ease;
